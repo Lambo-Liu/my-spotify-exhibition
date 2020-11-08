@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 *,
 *::before,
 *::after {
@@ -69,34 +76,59 @@ section {
   text-align: left;
   line-height: 1.25;
   white-space: nowrap;
-  color: black;
+  color: #191414;
 }
 
-.title-new {
+.title span {
+  position: absolute;
+  left: 0;
   overflow: hidden;
-  background: -webkit-gradient(linear, left top, right top, from(#3DE176), color-stop(50%, #3DE176), color-stop(50%, black));
-  background: -o-linear-gradient(left, #3DE176, #3DE176 50%, black 50%);
-  background: linear-gradient(to right, #3DE176, #3DE176 50%, black 50%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% 100%;
-  background-position: 100%;
-  text-decoration: none;
+  -webkit-transform: translateX(-100%);
+      -ms-transform: translateX(-100%);
+          transform: translateX(-100%);
+  -webkit-transition: -webkit-transform 1s ease;
+  transition: -webkit-transform 1s ease;
+  -o-transition: transform 1s ease;
+  transition: transform 1s ease;
+  transition: transform 1s ease, -webkit-transform 1s ease;
+}
+
+.title span::before {
+  display: inline-block;
+  content: attr(data-content);
+  color: #3DE176;
+  -webkit-transform: translateX(100%);
+      -ms-transform: translateX(100%);
+          transform: translateX(100%);
+  -webkit-transition: -webkit-transform 1s ease;
+  transition: -webkit-transform 1s ease;
+  -o-transition: transform 1s ease;
+  transition: transform 1s ease;
+  transition: transform 1s ease, -webkit-transform 1s ease;
+}
+
+.title-animate span {
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0);
+}
+
+.title-animate span::before {
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0);
 }
 
 .title-animate {
-  background-position: 0 100%;
   right: 10px;
-  overflow: hidden;
   -webkit-transition: 1s ease;
-  -o-transition: 1s ease;
   transition: 1s ease;
+  -o-transition: 1s ease;
 }
 
 .title .letter {
   display: inline-block;
-  color: black;
+  color: #191414;
   line-height: 1;
 }
 
@@ -105,7 +137,7 @@ section {
   right: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #1DB954;
+  background-color: #f7f7f7;
   -webkit-transition: 1s ease;
   -o-transition: 1s ease;
   transition: 1s ease;
@@ -123,7 +155,7 @@ section {
   min-height: 500px;
   right: 10vw;
   border-radius: 50%;
-  background-color: white;
+  background-color: #1DB954;
   opacity: 0;
   -webkit-animation: scaleIn 6s infinite cubic-bezier(.11,0,.5,1);
           animation: scaleIn 6s infinite cubic-bezier(.11,0,.5,1)

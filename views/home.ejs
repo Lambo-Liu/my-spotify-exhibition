@@ -31,10 +31,10 @@
     <script>
       function animateText() {
         let title1Wrapper = document.querySelector(".title-1");
-        title1Wrapper.innerHTML = title1Wrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+        title1Wrapper.innerHTML = title1Wrapper.textContent.replace(/\S/g, "<div class='letter'>$&</div>");
 
         let title2Wrapper = document.querySelector(".title-2");
-        title2Wrapper.innerHTML = title2Wrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+        title2Wrapper.innerHTML = title2Wrapper.textContent.replace(/\S/g, "<div class='letter'>$&</div>");
 
         anime.timeline()
         .add({
@@ -62,12 +62,9 @@
           let title1 = document.querySelector(".title-1");
           let title2 = document.querySelector(".title-2");
           let title = document.querySelector(".title");
-          console.log(title1);
-          console.log(title2);
-          console.log(title);
           title.classList.add("title-new");
-          title1.textContent = "My Spotify";
-          title2.textContent = "Exhibition";
+          title1.innerHTML = "<span data-content='My Spotify' aria-hidden='true'></span>My Spotify";
+          title2.innerHTML = "<span data-content='Exhibition' aria-hidden='true'></span>Exhibition";
         }, 2700);
       }
 
@@ -78,7 +75,7 @@
         cover.classList.add("cover-animate");
         setTimeout(function() {
           letters.classList.add("title-animate");
-        }, 55);
+        }, 20);
         circles.classList.add("circles-animate");
         setTimeout(function() {
           circles.remove();
