@@ -1,0 +1,15 @@
+{
+  "name": "my-spotify-exhibition",
+  "version": "1.0.0",
+  "description": "My Spotify Exhibition - An Immersive Experience.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lambert Liu",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1"
+  }
+}
