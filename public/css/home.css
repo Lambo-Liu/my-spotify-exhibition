@@ -1,27 +1,36 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 html {
   font-family: 'Poppins', sans-serif;
   font-size: calc(1rem + 1.5vw);
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
+  -ms-scroll-snap-type: y mandatory;
+      scroll-snap-type: y mandatory;
   margin: 0;
   padding: 0;
 }
 
 body {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  scroll-snap-type: y mandatory;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-scroll-snap-type: y mandatory;
+      scroll-snap-type: y mandatory;
   margin: 0;
   padding: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  overscroll-behavior: none;
+  -ms-scroll-chaining: none;
+      overscroll-behavior: none;
 }
 
 section {
@@ -48,18 +57,47 @@ section {
   color: #191414;
 }
 
+.bg-dark {
+  background-color: #141414;
+}
+
 .title {
   position: absolute;
-  right: 25px;
-  font-weight: 600;
+  right: 60px;
+  font-weight: 500;
   font-size: 5.25rem;
   text-align: left;
   line-height: 1.25;
   white-space: nowrap;
+  color: black;
+}
+
+.title-new {
+  overflow: hidden;
+  background: -webkit-gradient(linear, left top, right top, from(#3DE176), color-stop(50%, #3DE176), color-stop(50%, black));
+  background: -o-linear-gradient(left, #3DE176, #3DE176 50%, black 50%);
+  background: linear-gradient(to right, #3DE176, #3DE176 50%, black 50%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 100%;
+  background-position: 100%;
+  text-decoration: none;
+}
+
+.title-animate {
+  background-position: 0 100%;
+  right: 10px;
+  overflow: hidden;
+  -webkit-transition: 1s ease;
+  -o-transition: 1s ease;
+  transition: 1s ease;
 }
 
 .title .letter {
   display: inline-block;
+  color: black;
+  line-height: 1;
 }
 
 .cover {
@@ -68,6 +106,13 @@ section {
   width: 100vw;
   height: 100vh;
   background-color: #1DB954;
+  -webkit-transition: 1s ease;
+  -o-transition: 1s ease;
+  transition: 1s ease;
+}
+
+.cover-animate {
+  width: 0;
 }
 
 .circle {
@@ -80,16 +125,39 @@ section {
   border-radius: 50%;
   background-color: white;
   opacity: 0;
-  animation: scaleIn 6s infinite cubic-bezier(.11,0,.5,1)
+  -webkit-animation: scaleIn 6s infinite cubic-bezier(.11,0,.5,1);
+          animation: scaleIn 6s infinite cubic-bezier(.11,0,.5,1)
+}
+
+.circles-animate {
+  opacity: 0;
+  -webkit-transition: 1s ease;
+  -o-transition: 1s ease;
+  transition: 1s ease;
+}
+
+@-webkit-keyframes scaleIn {
+  from {
+    -webkit-transform: scale(0, 0);
+            transform: scale(0, 0);
+    opacity: 0.75;
+  }
+  to {
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+    opacity: 0;
+  }
 }
 
 @keyframes scaleIn {
   from {
-    transform: scale(0, 0);
+    -webkit-transform: scale(0, 0);
+            transform: scale(0, 0);
     opacity: 0.75;
   }
   to {
-    transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
     opacity: 0;
   }
 }

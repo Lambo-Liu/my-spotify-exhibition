@@ -4,18 +4,20 @@
     <meta charset="utf-8">
     <title>My Spotify Exhibition</title>
     <link rel="stylesheet" href="/css/bootstrap-grid.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/home.css">
     <script src="/js/anime.min.js"></script>
   </head>
   <body>
-    <section>
+    <section class="bg-dark">
       <div class="cover"></div>
-      <div class="w-100 h-100 bg-transparent d-flex align-items-center justify-content-center">
-        <div class="circle" style="animation-delay: 0s"></div>
-        <div class="circle" style="animation-delay: 1.5s"></div>
-        <div class="circle" style="animation-delay: 3s"></div>
-        <div class="circle" style="animation-delay: 4.5s"></div>
+      <div class="w-100 h-100 d-flex align-items-center justify-content-center">
+        <div class="circles w-100 h-100 d-flex align-items-center justify-content-center">
+          <div class="circle" style="animation-delay: 0s"></div>
+          <div class="circle" style="animation-delay: 1.5s"></div>
+          <div class="circle" style="animation-delay: 3s"></div>
+          <div class="circle" style="animation-delay: 4.5s"></div>
+        </div>
         <div class="title">
           <div class="title-1">My Spotify</div>
           <div class="title-2">Exhibition</div>
@@ -26,7 +28,7 @@
       <h1>Section Two</h1>
     </section>
 
-    <script type="text/javascript">
+    <script>
       function animateText() {
         let title1Wrapper = document.querySelector(".title-1");
         title1Wrapper.innerHTML = title1Wrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
@@ -55,17 +57,38 @@
           duration: 1200,
           delay: anime.stagger(50, {start: 1500})
         })
+
+        setTimeout(function() {
+          let title1 = document.querySelector(".title-1");
+          let title2 = document.querySelector(".title-2");
+          let title = document.querySelector(".title");
+          console.log(title1);
+          console.log(title2);
+          console.log(title);
+          title.classList.add("title-new");
+          title1.textContent = "My Spotify";
+          title2.textContent = "Exhibition";
+        }, 2700);
       }
 
       function animateCover() {
-        let cover = document.querySelector("cover");
-        cover.classList.add("coverAnimate");
+        let cover = document.querySelector(".cover");
+        let letters = document.querySelector(".title");
+        let circles = document.querySelector(".circles");
+        cover.classList.add("cover-animate");
+        setTimeout(function() {
+          letters.classList.add("title-animate");
+        }, 55);
+        circles.classList.add("circles-animate");
+        setTimeout(function() {
+          circles.remove();
+        }, 2000);
       }
 
       animateText();
       setTimeout(function() {
         animateCover();
-      }, 3000);
+      }, 4000);
     </script>
   </body>
 </html>
