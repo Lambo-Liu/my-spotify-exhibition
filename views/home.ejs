@@ -2,9 +2,11 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Spotify Exhibition</title>
     <link rel="stylesheet" href="/css/bootstrap-grid.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/home.css">
     <script src="/js/anime.min.js"></script>
   </head>
@@ -31,12 +33,10 @@
         <div class="scroll-text hidden"> Scroll to start ... </div>
       </div>
     </section>
-    <section class="bg-light shadow-top">
-      <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
         <h1 class="welcome">Welcome</h1>
         <small class="welcome-subtitle">to your own Spotify replay experience.</small>
         <button class="login-btn" type="button" name="login">Get Started</button>
-      </div>
+      </div> -->
     </section>
 
     <script>
@@ -91,8 +91,10 @@
           circles.remove();
         }, 2000);
         setTimeout(function() {
+          console.log("animate");
           title.classList.add("title-animate");
           setTimeout(function() {
+            console.log("new");
             title.className = "title-new";
             title.innerHTML = "<div class='title-1'>My Spotify</div> <div class='title-2'>Exhibition</div> <div class='subtitle hidden'>An Immersive Experience, For You Only.</div>";
             setTimeout(function() {
@@ -110,10 +112,13 @@
         }, 1000);
       }
 
-      animateText();
-      setTimeout(function() {
-        animateCover();
-      }, 5000);
+      window.addEventListener('DOMContentLoaded', (event) => {
+        animateText();
+        setTimeout(function() {
+          animateCover();
+        }, 5000);
+        initAlbums();
+      });
     </script>
   </body>
 </html>
