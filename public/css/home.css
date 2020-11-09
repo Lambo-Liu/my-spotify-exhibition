@@ -350,7 +350,7 @@ section {
     33.3% {
       opacity: 1;
       -webkit-transform: translateY(1.14rem);
-      transform: translateY(1.14rem);
+      transform: translateY(0.8rem);
     }
     66.6% {
       opacity: 1;
@@ -363,4 +363,36 @@ section {
       transform: translateY(2.4rem) scale(0.5);
     }
   }
+}
+
+.welcome {
+  font-size: 2rem;
+  margin-bottom: 0;
+  background: -webkit-linear-gradient(158deg, rgba(44,153,255,1) 0%, rgba(29,185,84,1) 100%);
+  text-shadow: 5px 5px 10px rgba(0,0,0,.1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.welcome-subtitle {
+  font-weight: light;
+  font-size: 0.8rem;
+}
+
+.login-btn {
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  border: 2px solid #141414;
+  background: inherit;
+  font-size: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  outline: none !important;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-top: 50px;
+}
+
+.login-btn:hover, .login-btn:active {
+  background: #141414;
+  color: #F7F7F7;
 }

@@ -32,7 +32,11 @@
       </div>
     </section>
     <section class="bg-light shadow-top">
-
+      <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+        <h1 class="welcome">Welcome</h1>
+        <small class="welcome-subtitle">to your own Spotify replay experience.</small>
+        <button class="login-btn" type="button" name="login">Get Started</button>
+      </div>
     </section>
 
     <script>
@@ -51,7 +55,7 @@
           opacity: [0,1],
           easing: "easeOutExpo",
           duration: 1200,
-          delay: anime.stagger(50, {start: 1200})
+          delay: anime.stagger(50, {start: 2200})
         })
 
         anime.timeline()
@@ -62,7 +66,7 @@
           opacity: [0,1],
           easing: "easeOutExpo",
           duration: 1200,
-          delay: anime.stagger(50, {start: 1500})
+          delay: anime.stagger(50, {start: 2500})
         })
 
         setTimeout(function() {
@@ -71,7 +75,7 @@
           let title = document.querySelector(".title");
           title1.innerHTML = "<span data-content='My Spotify' aria-hidden='true'></span>My Spotify";
           title2.innerHTML = "<span data-content='Exhibition' aria-hidden='true'></span>Exhibition";
-        }, 2700);
+        }, 3700);
       }
 
       function animateCover() {
@@ -109,7 +113,7 @@
       animateText();
       setTimeout(function() {
         animateCover();
-      }, 4000);
+      }, 5000);
     </script>
   </body>
 </html>
