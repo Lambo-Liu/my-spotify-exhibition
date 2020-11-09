@@ -56,16 +56,34 @@ section {
   height: 100%;
 }
 
+.hidden {
+  opacity: 0 !important;
+}
+
 .text-white {
-  color: white;
+  color: #F7F7F7;
 }
 
 .text-black {
-  color: #191414;
+  color: #141414;
 }
 
 .bg-dark {
   background-color: #141414;
+}
+
+.bg-light {
+  background-color: #F7F7F7;
+}
+
+.shadow {
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,.1);
+  -webkit-box-shadow: 0 20px 25px -5px rgba(0,0,0,.1);
+}
+
+.shadow-top {
+  box-shadow: inset 0px 0 20px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 0px 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .title {
@@ -76,7 +94,13 @@ section {
   text-align: left;
   line-height: 1.25;
   white-space: nowrap;
-  color: #191414;
+  color: #141414;
+}
+
+.title .letter {
+  display: inline-block;
+  color: #141414;
+  line-height: 1;
 }
 
 .title span {
@@ -126,10 +150,25 @@ section {
   -o-transition: 1s ease;
 }
 
-.title .letter {
-  display: inline-block;
-  color: #191414;
-  line-height: 1;
+.title-new {
+  position: absolute;
+  right: 10px;
+  font-weight: 500;
+  font-size: 5.25rem;
+  text-align: left;
+  line-height: 1.25;
+  white-space: nowrap;
+  color: #3DE176;
+  z-index: 1;
+}
+
+.title-shrink {
+  font-size: 4rem;
+  right: 100px;
+  margin-top: -50px;
+  -webkit-transition: 1s ease;
+  transition: 1s ease;
+  -o-transition: 1s ease;
 }
 
 .cover {
@@ -137,7 +176,7 @@ section {
   right: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #f7f7f7;
+  background-color: #F7F7F7;
   -webkit-transition: 1s ease;
   -o-transition: 1s ease;
   transition: 1s ease;
@@ -157,12 +196,37 @@ section {
   border-radius: 50%;
   background-color: #1DB954;
   opacity: 0;
-  -webkit-animation: scaleIn 6s infinite cubic-bezier(.11,0,.5,1);
-          animation: scaleIn 6s infinite cubic-bezier(.11,0,.5,1)
+  -webkit-animation: scaleIn 5s infinite cubic-bezier(.11,0,.5,1);
+          animation: scaleIn 5s infinite cubic-bezier(.11,0,.5,1)
 }
 
 .circles-animate {
   opacity: 0;
+  -webkit-transition: 1s ease;
+  -o-transition: 1s ease;
+  transition: 1s ease;
+}
+
+.subtitle {
+  color: #F7F7F7;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-style: italic;
+  -webkit-transition: 1s ease;
+  -o-transition: 1s ease;
+  transition: 1s ease;
+}
+
+.arrows {
+  display: none;
+}
+
+.scroll-text {
+  position: absolute;
+  bottom: 120px;
+  color: #F7F7F7;
+  font-size: 0.6rem;
+  font-weight: lighter;
   -webkit-transition: 1s ease;
   -o-transition: 1s ease;
   transition: 1s ease;
@@ -191,5 +255,112 @@ section {
     -webkit-transform: scale(1, 1);
             transform: scale(1, 1);
     opacity: 0;
+  }
+}
+
+/*
+* The following styling is modified from the
+* "Pure CSS Scroll Animation Arrow" by Jakub Honíšek.
+*/
+
+@media (min-width: 992px) {
+  .scroll-text {
+    display: none;
+  }
+
+  .arrows {
+    position: absolute;
+    bottom: 120px;
+    -webkit-transition: 1s ease;
+    -o-transition: 1s ease;
+    transition: 1s ease;
+  }
+
+  .chevron {
+    position: absolute;
+    width: 0.8rem;
+    height: 0.24rem;
+    opacity: 0;
+    -webkit-transform: scale(0.3);
+    -ms-transform: scale(0.3);
+    transform: scale(0.3);
+    -webkit-animation: move-chevron 3s ease-out infinite;
+    animation: move-chevron 3s ease-out infinite;
+  }
+
+  .chevron:first-child {
+    -webkit-animation: move-chevron 3s ease-out 1s infinite;
+    animation: move-chevron 3s ease-out 1s infinite;
+  }
+
+  .chevron:nth-child(2) {
+    -webkit-animation: move-chevron 3s ease-out 2s infinite;
+    animation: move-chevron 3s ease-out 2s infinite;
+  }
+
+  .chevron:before, .chevron:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    background: #999999;
+  }
+
+  .chevron:before {
+    left: 0;
+    -webkit-transform: skewY(30deg);
+    -ms-transform: skewY(30deg);
+    transform: skewY(30deg);
+  }
+
+  .chevron:after {
+    right: 0;
+    width: 50%;
+    -webkit-transform: skewY(-30deg);
+    -ms-transform: skewY(-30deg);
+    transform: skewY(-30deg);
+  }
+
+  @-webkit-keyframes move-chevron {
+    25% {
+      opacity: 1;
+    }
+    33.3% {
+      opacity: 1;
+      -webkit-transform: translateY(1.14rem);
+      transform: translateY(1.14rem);
+    }
+    66.6% {
+      opacity: 1;
+      -webkit-transform: translateY(1.56rem);
+      transform: translateY(1.56rem);
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform: translateY(2.4rem) scale(0.5);
+      transform: translateY(2.4rem) scale(0.5);
+    }
+  }
+
+  @keyframes move-chevron {
+    25% {
+      opacity: 1;
+    }
+    33.3% {
+      opacity: 1;
+      -webkit-transform: translateY(1.14rem);
+      transform: translateY(1.14rem);
+    }
+    66.6% {
+      opacity: 1;
+      -webkit-transform: translateY(1.56rem);
+      transform: translateY(1.56rem);
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform: translateY(2.4rem) scale(0.5);
+      transform: translateY(2.4rem) scale(0.5);
+    }
   }
 }

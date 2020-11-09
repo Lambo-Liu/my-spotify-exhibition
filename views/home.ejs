@@ -14,18 +14,25 @@
       <div class="w-100 h-100 d-flex align-items-center justify-content-center">
         <div class="circles w-100 h-100 d-flex align-items-center justify-content-center">
           <div class="circle" style="animation-delay: 0s"></div>
-          <div class="circle" style="animation-delay: 1.5s"></div>
-          <div class="circle" style="animation-delay: 3s"></div>
-          <div class="circle" style="animation-delay: 4.5s"></div>
+          <div class="circle" style="animation-delay: 1.25s"></div>
+          <div class="circle" style="animation-delay: 2.5s"></div>
+          <div class="circle" style="animation-delay: 3.75s"></div>
         </div>
         <div class="title">
           <div class="title-1">My Spotify</div>
           <div class="title-2">Exhibition</div>
+          <div class='subtitle hidden'>An Immersive Experience, For You Only.</div>
         </div>
+        <div class="arrows w-100 d-flex align-items-center justify-content-center hidden">
+          <div class="chevron"></div>
+          <div class="chevron"></div>
+          <div class="chevron"></div>
+        </div>
+        <div class="scroll-text hidden"> Scroll to start ... </div>
       </div>
     </section>
-    <section>
-      <h1>Section Two</h1>
+    <section class="bg-light shadow-top">
+
     </section>
 
     <script>
@@ -62,7 +69,6 @@
           let title1 = document.querySelector(".title-1");
           let title2 = document.querySelector(".title-2");
           let title = document.querySelector(".title");
-          title.classList.add("title-new");
           title1.innerHTML = "<span data-content='My Spotify' aria-hidden='true'></span>My Spotify";
           title2.innerHTML = "<span data-content='Exhibition' aria-hidden='true'></span>Exhibition";
         }, 2700);
@@ -70,16 +76,34 @@
 
       function animateCover() {
         let cover = document.querySelector(".cover");
-        let letters = document.querySelector(".title");
+        let title = document.querySelector(".title");
         let circles = document.querySelector(".circles");
+        let arrows = document.querySelector(".arrows");
+        let scrollText = document.querySelector(".scroll-text");
+
         cover.classList.add("cover-animate");
-        setTimeout(function() {
-          letters.classList.add("title-animate");
-        }, 20);
         circles.classList.add("circles-animate");
         setTimeout(function() {
           circles.remove();
         }, 2000);
+        setTimeout(function() {
+          title.classList.add("title-animate");
+          setTimeout(function() {
+            title.className = "title-new";
+            title.innerHTML = "<div class='title-1'>My Spotify</div> <div class='title-2'>Exhibition</div> <div class='subtitle hidden'>An Immersive Experience, For You Only.</div>";
+            setTimeout(function() {
+              title.classList.add("title-shrink");
+              let subtitle = document.querySelector(".subtitle");
+              setTimeout(function() {
+                subtitle.classList.remove("hidden");
+                setTimeout(function() {
+                  arrows.classList.remove("hidden");
+                  scrollText.classList.remove("hidden");
+                }, 2000);
+              }, 1000);
+            }, 300);
+          }, 1000);
+        }, 1000);
       }
 
       animateText();
