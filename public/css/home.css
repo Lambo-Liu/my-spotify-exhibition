@@ -48,6 +48,14 @@ section {
   position: relative;
 }
 
+.main {
+  overflow: hidden;
+}
+
+.intro {
+  overflow: hidden;
+}
+
 .w-100 {
   width: 100%;
 }
@@ -77,13 +85,13 @@ section {
 }
 
 .shadow {
-  box-shadow: 0 20px 25px -5px rgba(0,0,0,.1);
-  -webkit-box-shadow: 0 20px 25px -5px rgba(0,0,0,.1);
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
 }
 
 .shadow-top {
-  box-shadow: inset 0px 0 20px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: inset 0px 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0px 0 1rem rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: inset 0px 0 1rem rgba(0, 0, 0, 0.15);
 }
 
 .title {
@@ -222,7 +230,7 @@ section {
 
 .scroll-text {
   position: absolute;
-  bottom: 120px;
+  bottom: 10vh;
   color: #F7F7F7;
   font-size: 0.6rem;
   font-weight: 300;
@@ -397,8 +405,213 @@ section {
   }
 }
 
+.album {
+  position: absolute;
+}
+
+.start-text {
+  -webkit-transition: 1s ease;
+  transition: 1s ease;
+  -o-transition: 1s ease;
+}
+
+@media (orientation:landscape) {
+  #album-1 {
+    top: 56vh;
+    left: 67vw;
+  }
+
+  #album-2 {
+    top: 8vh;
+    right: 56vw;
+  }
+
+  #album-3 {
+    top: 73vh;
+    right: 59vw;
+  }
+
+  #album-4 {
+    top: 64vh;
+    right: 46vw;
+  }
+
+  #album-5 {
+    top: 32vh;
+    right: 83vw;
+  }
+
+  #album-6 {
+    top: 39vh;
+    left: 78vw;
+  }
+
+  #album-7 {
+    top: 36vh;
+    right: 53vw;
+    z-index: 1
+  }
+
+  #album-8 {
+    top: 54vh;
+    right: 68vw;
+    z-index: 1;
+  }
+
+  #album-9 {
+    top: 67vh;
+    right: 84vw;
+    z-index: 1;
+  }
+
+  #album-10 {
+    top: 12vh;
+    left: 67vw;
+  }
+
+  #album-11 {
+    top: 4vh;
+    right: 76vw;
+  }
+
+  #album-12 {
+    top: 70vh;
+    left: 81vw;
+  }
+
+  #album-13 {
+    top: 24vh;
+    right: 65vw;
+  }
+
+  #album-14 {
+    top: 2vh;
+    left: 48vw;
+  }
+
+  #album-15 {
+    top: 4vh;
+    left: 82vw;
+  }
+
+  #album-16 {
+    top: 23vh;
+    right: 31vw;
+  }
+
+  #album-17 {
+    top: 69vh;
+    left: 57vw;
+  }
+
+  #album-18 {
+    top: 43vh;
+    left: 49vw;
+  }
+
+  .album-after {
+    width: calc(18px + 11vw) !important;
+    height: calc(18px + 11vw) !important;
+  }
+
+  #album-1.album-after {
+    top: 82vh;
+    left: 73vw;
+    transform
+  }
+
+  #album-2.album-after {
+    top: 4vh;
+    right: 72vw;
+  }
+
+  #album-3.album-after {
+    top: 77vh;
+    right: 60vw;
+  }
+
+  #album-4.album-after {
+    top: 85vh;
+    right: 47vw;
+  }
+
+  #album-5.album-after {
+    top: 40vh;
+    right: 84vw;
+  }
+
+  #album-6.album-after {
+    top: 25vh;
+    left: 82vw;
+  }
+
+  #album-7.album-after {
+    top: -3vh;
+    right: 59vw;
+    z-index: 1
+  }
+
+  #album-8.album-after {
+    top: 74vh;
+    right: 76vw;
+    z-index: 1;
+  }
+
+  #album-9.album-after {
+    top: 67vh;
+    right: 88vw;
+    z-index: 1;
+  }
+
+  #album-10.album-after {
+    top: -5vh;
+    left: 77vw;
+  }
+
+  #album-11.album-after {
+    top: -6vh;
+    right: 86vw;
+  }
+
+  #album-12.album-after {
+    top: 68vh;
+    left: 85vw;
+  }
+
+  #album-13.album-after {
+    top: 18vh;
+    right: 81vw;
+  }
+
+  #album-14.album-after {
+    top: -8vh;
+    left: 45vw;
+  }
+
+  #album-15.album-after {
+    top: 2vh;
+    left: 88vw;
+  }
+
+  #album-16.album-after {
+    top: -1vh;
+    right: 28vw;
+  }
+
+  #album-17.album-after {
+    top: 78vh;
+    left: 56vw;
+  }
+
+  #album-18.album-after {
+    top: 45vh;
+    left: 87vw;
+  }
+}
+
 .welcome {
   font-size: 2rem;
+  margin-top: 0;
   margin-bottom: 0;
   background: -webkit-linear-gradient(158deg, rgba(44,153,255,1) 0%, rgba(29,185,84,1) 100%);
   text-shadow: 5px 5px 10px rgba(0,0,0,.1);
@@ -429,4 +642,37 @@ section {
 .login-btn:hover, .login-btn:active {
   background: #141414;
   color: #F7F7F7;
+}
+
+@media screen and (min-height: 320px) and (max-height: 767px) and (orientation: landscape) {
+  .title {
+    right: 4vw;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: calc(2rem + 3vw);
+    text-align: left;
+  }
+
+  .title-animate {
+    right: 2vw;
+    text-align: left;
+  }
+
+  .title-new {
+    position: absolute;
+    right: 2vw;
+    font-size: calc(2em + 3vw);
+    text-align: left;
+  }
+
+  .title-shrink {
+    font-size: calc(1.75rem + 3vw);
+    right: 12vw;
+  }
+
+  .subtitle {
+    margin-left: 0;
+    margin-right: 0;
+    font-size: calc(0.5rem + 0.5vw);
+  }
 }

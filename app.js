@@ -12,6 +12,10 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use("/modules/fontawesome", express.static(__dirname + "/node_modules/@fortawesome/fontawesome-free/"));
+app.use("/modules/animate", express.static(__dirname + "/node_modules/animate.css/"));
+app.use("/modules/animejs", express.static(__dirname + "/node_modules/animejs/lib/"));
+
 const indexRouter = require("./routes/index.js");
 app.use("/", indexRouter);
 
