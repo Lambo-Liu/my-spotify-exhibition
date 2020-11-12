@@ -15,6 +15,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use("/modules/fontawesome", express.static(__dirname + "/node_modules/@fortawesome/fontawesome-free/"));
 app.use("/modules/animate", express.static(__dirname + "/node_modules/animate.css/"));
 app.use("/modules/animejs", express.static(__dirname + "/node_modules/animejs/lib/"));
+app.use("/modules/jquery", express.static(__dirname + "/node_modules/jquery/dist/"));
 
 const indexRouter = require("./routes/index.js");
 app.use("/", indexRouter);

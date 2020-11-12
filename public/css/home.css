@@ -409,6 +409,11 @@ section {
   display: block !important;
   perspective: 30px;
   position: absolute;
+  margin-left: 0;
+  margin-top: 0;
+  -webkit-transition: left 0.5s, top 0.5s, margin-top 0.5s, margin-left 0.5s;
+  transition: left 0.5s, top 0.5s, margin-top 0.5s, margin-left 0.5s;
+  -o-transition: left 0.5s, top 0.5s, margin-top 0.5s, margin-left 0.5s;
 }
 
 .album-after {
@@ -425,6 +430,7 @@ section {
 }
 
 .start-text {
+  perspective: 30px;
   -webkit-transition: 1s ease;
   transition: 1s ease;
   -o-transition: 1s ease;
@@ -433,374 +439,434 @@ section {
 #album-1 {
   top: 64vh;
   left: 74vw;
+  z-index: 11;
 }
 
 #album-2 {
   top: 15vh;
   right: 54vw;
+  z-index: 11;
 }
 
 #album-3 {
   top: 83vh;
   right: 54vw;
+  z-index: 11;
 }
 
 #album-4 {
   top: 68vh;
   right: 46vw;
+  z-index: 11;
 }
 
 #album-5 {
   top: 37vh;
   right: 83vw;
+  z-index: 11;
 }
 
 #album-6 {
   top: 41vh;
   left: 81vw;
+  z-index: 11;
 }
 
 #album-7 {
   top: 47vh;
   right: 53vw;
-  z-index: 1
+  z-index: 12;
 }
 
 #album-8 {
   top: 59vh;
   right: 74vw;
-  z-index: 1;
+  z-index: 12;
 }
 
 #album-9 {
   top: 75vh;
   right: 84vw;
-  z-index: 1;
+  z-index: 12;
 }
 
 #album-10 {
   top: 20vh;
   left: 60vw;
+  z-index: 11;
 }
 
 #album-11 {
   top: 9vh;
   right: 78vw;
+  z-index: 11;
 }
 
 #album-12 {
   top: 80vh;
   left: 84vw;
+  z-index: 11;
 }
 
 #album-13 {
-  top: 31vh;
-  right: 58vw;
+  top: 36vh;
+  right: 24vw;
+  z-index: 11;
 }
 
 #album-14 {
   top: 2vh;
   left: 48vw;
+  z-index: 11;
 }
 
 #album-15 {
   top: 9vh;
   left: 82vw;
+  z-index: 11;
 }
 
 #album-16 {
-  top: 36vh;
-  right: 24vw;
+  top: 31vh;
+  right: 58vw;
+  z-index: 11;
 }
 
 #album-17 {
   top: 85vh;
   left: 57vw;
+  z-index: 11;
 }
 
 #album-18 {
   top: 53vh;
   left: 52vw;
+  z-index: 13;
 }
 
 #album-1.album-after {
   top: 72vh;
   left: 68vw;
+  z-index: 11;
 }
 
 #album-2.album-after {
   top: 10vh;
   right: 57vw;
+  z-index: 11;
 }
 
 #album-3.album-after {
   top: 89vh;
   right: 54vw;
+  z-index: 11;
 }
 
 #album-4.album-after {
   top: 75vh;
   right: 42vw;
+  z-index: 11;
 }
 
 #album-5.album-after {
   top: 27vh;
   right: 86vw;
+  z-index: 11;
 }
 
 #album-6.album-after {
   top: 24vh;
   left: 84vw;
+  z-index: 11;
 }
 
 #album-7.album-after {
   top: 65vh;
   right: 82vw;
-  z-index: 1
+  z-index: 12;
 }
 
 #album-8.album-after {
   top: 73vh;
   right: 69vw;
-  z-index: 1;
+  z-index: 12;
 }
 
 #album-9.album-after {
   top: 85vh;
   right: 84vw;
-  z-index: 1;
+  z-index: 12;
 }
 
 #album-10.album-after {
   top: 8vh;
   left: 59vw;
+  z-index: 11;
 }
 
 #album-11.album-after {
   top: 2vh;
   right: 84vw;
+  z-index: 11;
 }
 
 #album-12.album-after {
   top: 84vh;
   left: 86vw;
+  z-index: 11;
 }
 
 #album-13.album-after {
-  top: 19vh;
-  right: 66vw;
+  top: 18vh;
+  right: 29vw;
+  z-index: 11;
 }
 
 #album-14.album-after {
   top: -1vh;
   left: 48vw;
+  z-index: 11;
 }
 
 #album-15.album-after {
   top: 4vh;
   left: 85vw;
+  z-index: 11;
 }
 
 #album-16.album-after {
-  top: 18vh;
-  right: 29vw;
+  top: 19vh;
+  right: 66vw;
+  z-index: 11;
 }
 
 #album-17.album-after {
   top: 88vh;
   left: 57vw;
+  z-index: 11;
 }
 
 #album-18.album-after {
   top: 65vh;
   left: 85vw;
+  z-index: 13;
 }
 
 @media (orientation:landscape) {
   #album-1 {
     top: 56vh;
     left: 67vw;
+    z-index: 11;
   }
 
   #album-2 {
     top: 8vh;
     right: 56vw;
+    z-index: 11;
   }
 
   #album-3 {
     top: 73vh;
     right: 59vw;
+    z-index: 11;
   }
 
   #album-4 {
     top: 64vh;
     right: 46vw;
+    z-index: 11;
   }
 
   #album-5 {
     top: 32vh;
     right: 83vw;
+    z-index: 11;
   }
 
   #album-6 {
     top: 39vh;
     left: 78vw;
+    z-index: 11;
   }
 
   #album-7 {
     top: 36vh;
     right: 53vw;
-    z-index: 1
+    z-index: 12;
   }
 
   #album-8 {
     top: 54vh;
     right: 68vw;
-    z-index: 1;
+    z-index: 12;
   }
 
   #album-9 {
     top: 67vh;
     right: 84vw;
-    z-index: 1;
+    z-index: 12;
   }
 
   #album-10 {
     top: 12vh;
     left: 67vw;
+    z-index: 11;
   }
 
   #album-11 {
     top: 4vh;
     right: 76vw;
+    z-index: 11;
   }
 
   #album-12 {
     top: 70vh;
     left: 81vw;
+    z-index: 11;
   }
 
   #album-13 {
-    top: 24vh;
-    right: 65vw;
+    top: 23vh;
+    right: 31vw;
+    z-index: 11;
   }
 
   #album-14 {
     top: 2vh;
     left: 48vw;
+    z-index: 11;
   }
 
   #album-15 {
     top: 4vh;
     left: 82vw;
+    z-index: 11;
   }
 
   #album-16 {
-    top: 23vh;
-    right: 31vw;
+    top: 24vh;
+    right: 65vw;
+    z-index: 11;
   }
 
   #album-17 {
     top: 69vh;
     left: 57vw;
+    z-index: 11;
   }
 
   #album-18 {
     top: 43vh;
     left: 49vw;
+    z-index: 13;
   }
 
   #album-1.album-after {
-    top: 82vh;
+    top: 78vh;
     left: 73vw;
+    z-index: 11;
   }
 
   #album-2.album-after {
     top: 4vh;
     right: 72vw;
+    z-index: 11;
   }
 
   #album-3.album-after {
-    top: 77vh;
+    top: 80vh;
     right: 60vw;
+    z-index: 11;
   }
 
   #album-4.album-after {
-    top: 85vh;
+    top: 86vh;
     right: 47vw;
+    z-index: 11;
   }
 
   #album-5.album-after {
     top: 40vh;
     right: 84vw;
+    z-index: 11;
   }
 
   #album-6.album-after {
     top: 25vh;
     left: 82vw;
+    z-index: 11;
   }
 
   #album-7.album-after {
-    top: -3vh;
+    top: -1vh;
     right: 59vw;
-    z-index: 1
+    z-index: 12;
   }
 
   #album-8.album-after {
     top: 74vh;
     right: 76vw;
-    z-index: 1;
+    z-index: 12;
   }
 
   #album-9.album-after {
-    top: 67vh;
-    right: 88vw;
-    z-index: 1;
+    top: 65vh;
+    right: 87vw;
+    z-index: 12;
   }
 
   #album-10.album-after {
-    top: -5vh;
+    top: 2vh;
     left: 77vw;
+    z-index: 11;
   }
 
   #album-11.album-after {
-    top: -6vh;
-    right: 86vw;
+    top: 7vh;
+    right: 88vw;
+    z-index: 11;
   }
 
   #album-12.album-after {
     top: 68vh;
     left: 85vw;
+    z-index: 11;
   }
 
   #album-13.album-after {
-    top: 18vh;
-    right: 81vw;
+    top: -1vh;
+    right: 28vw;
+    z-index: 11;
   }
 
   #album-14.album-after {
-    top: -8vh;
+    top: -3vh;
     left: 45vw;
+    z-index: 11;
   }
 
   #album-15.album-after {
-    top: 2vh;
-    left: 88vw;
+    top: 7vh;
+    left: 89vw;
+    z-index: 11;
   }
 
   #album-16.album-after {
-    top: -1vh;
-    right: 28vw;
+    top: 21vh;
+    right: 81vw;
+    z-index: 11;
   }
 
   #album-17.album-after {
-    top: 78vh;
+    top: 82vh;
     left: 56vw;
+    z-index: 11;
   }
 
   #album-18.album-after {
     top: 45vh;
     left: 87vw;
+    z-index: 13;
   }
 
   .login-btn {
@@ -826,21 +892,80 @@ section {
 }
 
 .login-btn {
-  display: inline-block;
+  display: block;
+  width: calc(6rem + 1.5vw);
+  height: calc(1.35rem + 1.5vw);
+  min-width: 150px;
+  min-height: 45px;
+  max-width: 100%;
   font-family: 'Poppins', sans-serif;
   border: 2px solid #141414;
-  background: inherit;
+  background: white;
+  text-align: center;
   font-size: 0.5rem;
   padding: 0.3rem 0.7rem;
   outline: none !important;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
   margin-top: 4vh;
+  border-radius: 0;
 }
 
 .login-btn:hover, .login-btn:active {
   background: #141414;
   color: #F7F7F7;
+  transition: width 0.4s ease, height 0.5s ease, min-width 0.4s ease, height 0.5s ease, border-radius 0.5s ease, padding 0.5s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.login-btn-clicked {
+  display: block;
+  transition: all 0.5s ease;
+  white-space: nowrap;
+  width: 5vw;
+  height: 5vw;
+  min-width: 50px;
+  min-height: 50px;
+  padding: 0;
+  color: transparent;
+  background: #141414;
+  z-index: -10;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.bg-expand {
+  position: absolute;
+  background: #141414;
+  z-index: 10;
+  width: 0;
+  height: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  border-radius:50%;
+  transition: 0.7s ease 0.2s;
+}
+
+.bg-expanded {
+  width: 200%;
+  height: 120%;
+  padding-bottom: 200%;
+}
+
+.album-center {
+  top: 50% !important;
+  margin-top: calc((18px + 7vw + 5vh) / -2);
+  pointer-events: none;
+}
+
+.album-center-left {
+  left: 50% !important;
+  margin-left: calc((18px + 7vw + 5vh) / -2);
+}
+
+.album-center-right {
+  right: 50% !important;
+  margin-right: calc((18px + 7vw + 5vh) / -2);
 }
 
 @media screen and (min-height: 320px) and (max-height: 767px) and (orientation: landscape) {
