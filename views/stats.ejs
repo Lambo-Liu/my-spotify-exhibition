@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Spotify Stats</title>
+    <link rel="stylesheet" href="/css/bootstrap-grid.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/modules/animate/animate.min.css">
+    <script src="/modules/animejs/anime.min.js"></script>
+    <script src="/modules/jquery/jquery.min.js"></script>
+  </head>
+  <body>
+    <section class="main bg-light shadow-top">
+      <div class="album album-after" id="album-1">
+        <img class="album-inner shadow" src="/img/album-1.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-2">
+        <img class="album-inner shadow" src="/img/album-2.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-3">
+        <img class="album-inner shadow" src="/img/album-3.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-4">
+        <img class="album-inner shadow" src="/img/album-4.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-5">
+        <img class="album-inner shadow" src="/img/album-5.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-6">
+        <img class="album-inner shadow" src="/img/album-6.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-7">
+        <img class="album-inner shadow" src="/img/album-7.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-8">
+        <img class="album-inner shadow" src="/img/album-8.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-9">
+        <img class="album-inner shadow" src="/img/album-9.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-10">
+        <img class="album-inner shadow" src="/img/album-10.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-11">
+        <img class="album-inner shadow" src="/img/album-11.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-12">
+        <img class="album-inner shadow" src="/img/album-12.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-13">
+        <img class="album-inner shadow" src="/img/album-13.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-14">
+        <img class="album-inner shadow" src="/img/album-14.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-15">
+        <img class="album-inner shadow" src="/img/album-15.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-16">
+        <img class="album-inner shadow" src="/img/album-16.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-17">
+        <img class="album-inner shadow" src="/img/album-17.jpg" alt="Album cover">
+      </div>
+      <div class="album album-after" id="album-18">
+        <img class="face album-inner shadow" src="/img/album-18.jpg" alt="Album cover">
+      </div>
+
+      <div class="start-text w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+        <div class="start-text-inner w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+          <div class="welcome-msg d-flex flex-column w-100 align-items-center justify-content-center">
+            <h1 class="welcome">Welcome</h1>
+            <small class="welcome-subtitle">to your own Spotify replay exhibition.</small>
+          </div>
+          <button class="login-btn login-btn-clicked" type="button" name="login">Log in with Spotify</button>
+        </div>
+      </div>
+      <span class="bg-expand"></span>
+    </section>
+
+    <script>
+      function initAlbums() {
+        let main = document.querySelector(".main");
+        let albums = document.querySelectorAll(".album");
+        const maxWidth = 28;
+        const minWidth = 24;
+
+        for (let i = 0; i < albums.length; i++) {
+          let randDimensions = Math.random() * (maxWidth - minWidth) + minWidth;
+          albums[i].style.width = "calc(" + randDimensions + "px + 8vw + 5vh)";
+          albums[i].style.height = "calc(" + randDimensions + "px + 8vw + 5vh)";
+        }
+      }
+
+      function initAnimation() {
+        window.history.replaceState({}, "My Spotify Stats", "/stats");
+
+        let btn = document.querySelector(".login-btn");
+        let backgroundExpand = document.querySelector(".bg-expand");
+        let albums = document.querySelectorAll(".album-inner");
+        let welcomeMsg = document.querySelector(".welcome-msg");
+
+        btn.innerHTML = "";
+        backgroundExpand.classList.add("bg-expanded");
+        setTimeout(function() {
+          let main = document.querySelector(".main");
+          main.style.background = "#141414";
+          for (var i = 0; i < albums.length; i++) {
+            albums[i].classList.remove("shadow");
+            $(albums[i]).off();
+            albums[i].parentElement.classList.remove("animate__infinite");
+            albums[i].parentElement.classList.add("album-center");
+
+            albums[i].parentElement.style.transition = "all 0.4s ease " + (0.15 * i) + "s";
+
+            var directions = ["left", "right", "right", "right", "right", "left", "right", "right", "right",
+                              "left", "right", "left", "right", "left", "left", "right", "left", "left"];
+
+            if (directions[i] === "left") {
+              albums[i].parentElement.classList.add("album-center-left");
+            } else {
+              albums[i].parentElement.classList.add("album-center-right");
+            }
+          }
+          setTimeout(function() {
+            welcomeMsg.remove();
+            btn.remove();
+
+            for (var i = 0; i < albums.length; i++) {
+              if (i === albums.length - 1) {
+
+              } else {
+                albums[i].parentElement.remove();
+              }
+            }
+          }, 3000)
+        }, 700)
+      }
+
+      // get tokens
+
+
+      initAlbums();
+      setTimeout(initAnimation, 500);
+
+
+    </script>
+  </body>
+</html>

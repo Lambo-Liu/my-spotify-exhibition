@@ -97,7 +97,7 @@
             <h1 class="welcome">Welcome</h1>
             <small class="welcome-subtitle">to your own Spotify replay exhibition.</small>
           </div>
-          <button class="login-btn" type="button" name="login">Start My Experience</button>
+          <button class="login-btn" type="button" name="login"><a href="/login">Log in with Spotify<a></button>
         </div>
       </div>
       <span class="bg-expand"></span>
@@ -275,57 +275,12 @@
         }
       }
 
-      function initButton() {
-        let btn = document.querySelector(".login-btn");
-        let backgroundExpand = document.querySelector(".bg-expand");
-        let albums = document.querySelectorAll(".album-inner");
-        let welcomeMsg = document.querySelector(".welcome-msg");
-
-        btn.addEventListener("click", function(e) {
-          welcomeMsg.classList.add("hidden");
-          btn.classList.add("login-btn-clicked");
-          btn.innerHTML = "";
-          backgroundExpand.classList.add("bg-expanded");
-          setTimeout(function() {
-            let main = document.querySelector(".main");
-            main.style.background = "#141414";
-            for (var i = 0; i < albums.length; i++) {
-              albums[i].classList.remove("shadow");
-              $(albums[i]).off();
-              albums[i].parentElement.classList.remove("animate__pulse");
-              albums[i].parentElement.classList.add("album-center");
-
-              albums[i].parentElement.style.transition = "all 0.4s ease " + (0.15 * i) + "s";
-
-              var directions = ["left", "right", "right", "right", "right", "left", "right", "right", "right",
-                                "left", "right", "left", "right", "left", "left", "right", "left", "left"];
-
-              if (directions[i] === "left") {
-                albums[i].parentElement.classList.add("album-center-left");
-              } else {
-                albums[i].parentElement.classList.add("album-center-right");
-              }
-            }
-            setTimeout(function() {
-              for (var i = 0; i < albums.length; i++) {
-                if (i === 17) {
-
-                } else {
-                  albums[i].remove();
-                }
-              }
-            }, 3000)
-          }, 700)
-        });
-      }
-
       window.addEventListener("DOMContentLoaded", (event) => {
         window.addEventListener("scroll", onScroll);
         animateText();
         setTimeout(function() {
           animateCover();
         }, 5000);
-        initButton();
       });
     </script>
   </body>
