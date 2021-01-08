@@ -79,7 +79,6 @@ app.get("/stats", function(req, res) {
   const storedState = req.cookies ? req.cookies[stateKey] : null;
 
   if (state === null || state !== storedState) {
-    console.log("hi");
     res.redirect("/login");
   } else {
     res.clearCookie(stateKey);
@@ -98,30 +97,78 @@ app.get("/stats", function(req, res) {
 
     request.post(authOptions, function(error, response, body) {
       if (!error && response.statusCode === 200) {
-        const options = {
+        const profile = {
           url: "https://api.spotify.com/v1/me",
           headers: {"Authorization": "Bearer " + body.access_token},
           json: true
         };
 
-        // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
-          //console.log(body);
-        });
-// !!!!!
-        var songs = {
+        const shortTermSongs = {
           url: "https://api.spotify.com/v1/me/top/tracks",
           limit: 50,
+          time_range: "short_term",
           headers: { "Authorization": "Bearer " + body.access_token},
           json: true
         };
 
-        request.get(songs, function(error, response, body) {
-          console.log(body);
+        const mediumTermSongs = {
+          url: "https://api.spotify.com/v1/me/top/tracks",
+          limit: 50,
+          time_range: "medium_term",
+          headers: { "Authorization": "Bearer " + body.access_token},
+          json: true
+        };
+
+        const longTermSongs = {
+          url: "https://api.spotify.com/v1/me/top/tracks",
+          limit: 50,
+          time_range: "long_term",
+          headers: { "Authorization": "Bearer " + body.access_token},
+          json: true
+        }
+
+        const shortTermArtists = {
+          url: "https://api.spotify.com/v1/me/top/artists",
+          limit: 50,
+          time_range: "short_term",
+          headers: { "Authorization": "Bearer " + body.access_token},
+          json: true
+        }
+
+        const mediumTermArtists = {
+          url: "https://api.spotify.com/v1/me/top/artists",
+          limit: 50,
+          time_range: "medium_term",
+          headers: { "Authorization": "Bearer " + body.access_token},
+          json: true
+        };
+
+        const longTermArtists = {
+          url: "https://api.spotify.com/v1/me/top/artists",
+          limit: 50,
+          time_range: "long_term",
+          headers: { "Authorization": "Bearer " + body.access_token},
+          json: true
+        }
+
+        request.get(profile, function(error, response, profile) {
+          request.get(shortTermSongs, function(error, response, shortTermSongs) {
+            request.get(mediumTermSongs, function(error, response, mediumTermSongs) {
+              request.get(longTermSongs, function(error, response, longTermSongs) {
+                request.get(shortTermArtists, function(error, response, shortTermArtists) {
+                  request.get(mediumTermArtists, function(error, response, mediumTermArtists) {
+                    request.get(longTermArtists, function(error, response, longTermArtists) {
+                      console.log(shortTermSongs);
+                      res.render("stats", {profile, shortTermSongs, mediumTermSongs, longTermSongs,
+                                           shortTermArtists, mediumTermArtists, longTermArtists});
+                    });
+                  });
+                });
+              });
+            });
+          });
         });
 
-        // we can also pass the token to the browser to make requests from there
-        res.render("stats");
       } else {
 				res.redirect('/?' +
           querystring.stringify({
