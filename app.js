@@ -104,49 +104,37 @@ app.get("/stats", function(req, res) {
         };
 
         const shortTermSongs = {
-          url: "https://api.spotify.com/v1/me/top/tracks",
-          limit: 50,
-          time_range: "short_term",
+          url: "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50",
           headers: { "Authorization": "Bearer " + body.access_token},
           json: true
         };
 
         const mediumTermSongs = {
-          url: "https://api.spotify.com/v1/me/top/tracks",
-          limit: 50,
-          time_range: "medium_term",
+          url: "https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50",
           headers: { "Authorization": "Bearer " + body.access_token},
           json: true
         };
 
         const longTermSongs = {
-          url: "https://api.spotify.com/v1/me/top/tracks",
-          limit: 50,
-          time_range: "long_term",
+          url: "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50",
           headers: { "Authorization": "Bearer " + body.access_token},
           json: true
         }
 
         const shortTermArtists = {
-          url: "https://api.spotify.com/v1/me/top/artists",
-          limit: 50,
-          time_range: "short_term",
+          url: "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=50",
           headers: { "Authorization": "Bearer " + body.access_token},
           json: true
         }
 
         const mediumTermArtists = {
-          url: "https://api.spotify.com/v1/me/top/artists",
-          limit: 50,
-          time_range: "medium_term",
+          url: "https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50",
           headers: { "Authorization": "Bearer " + body.access_token},
           json: true
         };
 
         const longTermArtists = {
-          url: "https://api.spotify.com/v1/me/top/artists",
-          limit: 50,
-          time_range: "long_term",
+          url: "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50",
           headers: { "Authorization": "Bearer " + body.access_token},
           json: true
         }
