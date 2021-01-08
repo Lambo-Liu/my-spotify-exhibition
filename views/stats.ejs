@@ -81,6 +81,14 @@
       <span class="bg-expand"></span>
     </section>
 
+    <section class="d-none">
+      <% shortTermSongs.items.forEach(function(song) { %>
+        <audio id=<%=song.uri%>>
+          <source src=<%=song.preview_url%> type="audio/mpeg">
+        </audio>
+      <% }); %>
+    </section>
+
     <script>
       function initAlbums() {
         let main = document.querySelector(".main");
@@ -136,6 +144,15 @@
                 albums[i].parentElement.remove();
               }
             }
+
+            let firstSongAudio = document.getElementById("<%= shortTermSongs.items[0].uri %>");
+            let audioDuration = ((firstSongAudio.duration - 2) * 1000);
+            firstSongAudio.volume = 0;
+            firstSongAudio.play();
+            $(firstSongAudio).animate({volume: 1}, 1500);
+            setTimeout(function() {
+              $(firstSongAudio).animate({volume: 0}, 1500);
+            }, audioDuration);
           }, 3000)
         }, 700)
       }
