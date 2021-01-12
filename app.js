@@ -19,8 +19,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const app = express();
-const hostname = "127.0.0.1";
-const port = 3000;
+const port = process.env.PORT || 3000;
 const secret = process.env.SECRET;
 
 app.use(express.urlencoded({ extended: true }));
@@ -192,6 +191,6 @@ app.get("/", function(req, res) {
   res.render("home");
 });
 
-app.listen(port, hostname, function() {
+app.listen(port, function() {
 	console.log(`Server running at http://${hostname}:${port}/`);
 });
