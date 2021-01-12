@@ -112,6 +112,9 @@
               <button class="btn-no-style time-range underline" onclick="changeTrackTime(2)"><small>6 Months</small></button>
               <button class="btn-no-style time-range underline" onclick="changeTrackTime(3)"><small>All Time</small></button>
             </div>
+            <div style="font-size: 0.4rem; font-style: italic; font-weight: 300; margin-left: 0.5rem; color: #B3B3B3; margin-bottom: 0.5rem;">
+              Click on a song to play its preview!
+            </div>
           </div>
           <div class="d-flex flex-row flex-wrap">
             <% shortTermSongs.items.forEach(function(song, i) { %>
@@ -343,24 +346,36 @@
             let index = card.id;
             let rank = Number(index) + 1;
 
-            if (currentTrackTimeRange === SHORT_TERM) {
-              bigCover.src = shortTermSongs.items[index].album.images[0].url;
-              bigRank.innerText = rank;
-              bigTitle.innerText = shortTermSongs.items[index].name;
-              bigArtist.innerText = "by " + shortTermSongs.items[index].artists[0].name;
-            }
-            else if (currentTrackTimeRange === MEDIUM_TERM) {
-              bigCover.src = mediumTermSongs.items[index].album.images[0].url;
-              bigRank.innerText = rank;
-              bigTitle.innerText = mediumTermSongs.items[index].name;
-              bigArtist.innerText = "by " + mediumTermSongs.items[index].artists[0].name;
-            }
-            else {
-              bigCover.src = longTermSongs.items[index].album.images[0].url;
-              bigRank.innerText = rank;
-              bigTitle.innerText = longTermSongs.items[index].name;
-              bigArtist.innerText = "by " + longTermSongs.items[index].artists[0].name;
-            }
+            bigCover.classList.add("hidden");
+            bigRank.classList.add("hidden");
+            bigTitle.classList.add("hidden");
+            bigArtist.classList.add("hidden");
+
+            setTimeout(function() {
+              if (currentTrackTimeRange === SHORT_TERM) {
+                bigCover.src = shortTermSongs.items[index].album.images[0].url;
+                bigRank.innerText = rank;
+                bigTitle.innerText = shortTermSongs.items[index].name;
+                bigArtist.innerText = "by " + shortTermSongs.items[index].artists[0].name;
+              }
+              else if (currentTrackTimeRange === MEDIUM_TERM) {
+                bigCover.src = mediumTermSongs.items[index].album.images[0].url;
+                bigRank.innerText = rank;
+                bigTitle.innerText = mediumTermSongs.items[index].name;
+                bigArtist.innerText = "by " + mediumTermSongs.items[index].artists[0].name;
+              }
+              else {
+                bigCover.src = longTermSongs.items[index].album.images[0].url;
+                bigRank.innerText = rank;
+                bigTitle.innerText = longTermSongs.items[index].name;
+                bigArtist.innerText = "by " + longTermSongs.items[index].artists[0].name;
+              }
+
+              bigCover.classList.remove("hidden");
+              bigRank.classList.remove("hidden");
+              bigTitle.classList.remove("hidden");
+              bigArtist.classList.remove("hidden");
+            }, 200)
 
             card.parentElement.parentElement.classList.add("d-none");
 
@@ -383,6 +398,11 @@
           let btns = document.querySelectorAll(".time-range");
 
           btns.forEach(function(btn, i) {
+            btn.disabled = true;
+            setTimeout(function() {
+              btn.disabled = false;
+            }, 2000);
+
             if (mode === i + 1) {
               btn.classList.add("active");
             } else {
@@ -424,6 +444,10 @@
 
 
             cards.forEach(function(card, i) {
+              card.parentElement.parentElement.classList.remove("d-none");
+              if (i === 0) {
+                card.parentElement.parentElement.classList.add("d-none");
+              }
               card.id = i;
               setTimeout(function() {
                 card.classList.add("hidden");
@@ -460,6 +484,10 @@
             }, 100)
 
             cards.forEach(function(card, i) {
+              card.parentElement.parentElement.classList.remove("d-none");
+              if (i === 0) {
+                card.parentElement.parentElement.classList.add("d-none");
+              }
               card.id = i;
               setTimeout(function() {
                 card.classList.add("hidden");
@@ -496,6 +524,10 @@
             }, 100)
 
             cards.forEach(function(card, i) {
+              card.parentElement.parentElement.classList.remove("d-none");
+              if (i === 0) {
+                card.parentElement.parentElement.classList.add("d-none");
+              }
               card.id = i;
               setTimeout(function() {
                 card.classList.add("hidden");
