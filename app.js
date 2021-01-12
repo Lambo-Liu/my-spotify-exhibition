@@ -43,7 +43,7 @@ let s3 = new aws.S3({
 
 const client_id = s3.client_id || process.env.CLIENT_ID; // Client id
 const client_secret = s3.client_secret || process.env.CLIENT_SECRET; // Secret key
-const redirect_uri = "https://my-spotify-exhibition.herokuapp.com//stats"; // Redirect uri
+const redirect_uri = "https://my-spotify-exhibition.herokuapp.com/stats"; // Redirect uri
 
 /**
  * Generates a random string containing numbers and letters
