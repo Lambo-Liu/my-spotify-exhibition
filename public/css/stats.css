@@ -16,6 +16,7 @@ body {
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+  text-align: inherit;
 }
 
 .text-left {

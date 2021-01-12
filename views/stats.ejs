@@ -92,7 +92,7 @@
       <span class="bg-expand"></span>
     </section>
 
-    <section class="main-after bg-dark text-white text-left shadow-top">
+    <section id="tracks" class="main-after bg-dark text-white text-left shadow-top">
       <div class="main-after d-flex flex-row flex-wrap">
         <div class="col-lg-4 col-12 d-flex flex-column left-wrapper">
           <img class="big-cover shadow" src=<%= shortTermSongs.items[0].album.images[0].url %> alt="Song cover">
@@ -121,27 +121,27 @@
               <% if (i !== 0) { %>
                 <div class="col-xxl-4 col-md-6">
                   <div class="card-wrapper">
-                    <div class="card track-card shadow d-flex flex-row" id=<%=i%>>
+                    <button class="btn-no-style w-100 card track-card shadow d-flex flex-row" onclick="clickTrackCard(this);" id=<%=i%>>
                       <img class="small-cover" src=<%=song.album.images[0].url%> alt="Song cover">
-                      <div class="rank-small d-flex align-items-center justify-content-center"><%=i+1%></div>
+                      <div class="rank-small h-100 d-flex align-items-center justify-content-center"><%=i+1%></div>
                       <div class="d-flex flex-column justify-content-center song-description-wrapper-small">
                         <small class="line-cut-1 song-title-small"><%=song.name%></small>
                         <small class="line-cut-1 song-artist-small"><%=song.artists[0].name%></small>
                       </div>
-                    </div>
+                    </button>
                   </div>
                 </div>
               <% } else { %>
                 <div class="d-none col-xxl-4 col-lg-6 col-12">
                   <div class="card-wrapper">
-                    <div class="card track-card shadow d-flex flex-row" id=<%=i%>>
+                    <button class="btn-no-style w-100 card track-card shadow d-flex flex-row" onclick="clickTrackCard(this);" id=<%=i%>>
                       <img class="small-cover" src=<%=song.album.images[0].url%> alt="Song cover">
-                      <div class="rank-small d-flex align-items-center justify-content-center"><%=i+1%></div>
+                      <div class="rank-small h-100 d-flex align-items-center justify-content-center"><%=i+1%></div>
                       <div class="d-flex flex-column justify-content-center song-description-wrapper-small">
                         <small class="line-cut-1 song-title-small"><%=song.name%></small>
                         <small class="line-cut-1 song-artist-small"><%=song.artists[0].name%></small>
                       </div>
-                    </div>
+                    </button>
                   </div>
                 </div>
               <% } %>
@@ -153,12 +153,12 @@
 
     <div class="nav-wrapper d-none hidden">
       <div class="nav shadow d-flex flex-row justify-content-center align-items-center">
-        <a class="d-flex flex-column justify-content-center align-items-center nav-item">
-          <i class="fa fa-sm fa-music" style="margin-bottom: 5px;"></i>
+        <a href="#tracks" class="d-flex flex-column justify-content-center align-items-center nav-item">
+          <i class="fa fa-music" style="margin-bottom: 5px; font-size: 24px;"></i>
           <div style="font-size: 11px; font-weight: 300;">Top Tracks</div>
         </a>
-        <a class="d-flex flex-column justify-content-center align-items-center nav-item">
-          <i class="fa fa-sm fa-microphone-alt" style="margin-bottom: 5px;"></i>
+        <a href="#artists" class="d-flex flex-column justify-content-center align-items-center nav-item">
+          <i class="fa fa-microphone-alt" style="margin-bottom: 5px; font-size: 24px;"></i>
           <div style="font-size: 11px; font-weight: 300;">Top Artists</div>
         </a>
       </div>
@@ -169,7 +169,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-lg modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content d-flex justify-content-center align-items-center">
           <div>Hello there! <br/></div>
           <small class="modal-msg">Just a reminder that this website plays a lot of music... Feel free to turn it up! (or continue without)</small>
@@ -185,6 +185,16 @@
           <source src=<%=song.preview_url%> type="audio/mpeg">
         </audio>
       <% }); %>
+      <% mediumTermSongs.items.forEach(function(song) { %>
+        <audio id=<%=song.uri%>>
+          <source src=<%=song.preview_url%> type="audio/mpeg">
+        </audio>
+      <% }); %>
+      <% longTermSongs.items.forEach(function(song) { %>
+        <audio id=<%=song.uri%>>
+          <source src=<%=song.preview_url%> type="audio/mpeg">
+        </audio>
+      <% }); %>
     </section>
 
     <script>
@@ -195,6 +205,9 @@
     const shortTermSongs = <%-JSON.stringify(shortTermSongs)%>
     const mediumTermSongs = <%-JSON.stringify(mediumTermSongs)%>
     const longTermSongs = <%-JSON.stringify(longTermSongs)%>
+
+    const audioDuration = ((30 - 2) * 1000);
+    var currentSongAudio;
 
     var currentIndex = 0;
     var currentTrackTimeRange = 1;
@@ -274,7 +287,7 @@
               flip.parentElement.classList.remove("album");
               flip.parentElement.removeAttribute("id");
             }, 1000);
-            initAudio();
+            initAudio(document.getElementById(shortTermSongs.items[0].uri));
 
             let nav = document.querySelector(".nav-wrapper");
             nav.classList.remove("d-none");
@@ -283,15 +296,17 @@
         }, 700)
       }
 
-      function initAudio() {
-        let firstSongAudio = document.getElementById("<%= shortTermSongs.items[0].uri %>");
-        let audioDuration = ((firstSongAudio.duration - 2) * 1000);
-        firstSongAudio.volume = 0;
-        firstSongAudio.play();
-        $(firstSongAudio).animate({volume: 1}, 1500);
+      function initAudio(src) {
+        if (currentSongAudio) {
+          currentSongAudio.volume = 0;
+        }
+        src.volume = 0;
+        src.play();
+        $(src).animate({volume: 1}, 1500);
         setTimeout(function() {
-          $(firstSongAudio).animate({volume: 0}, 1500);
+          $(src).animate({volume: 0}, 1500);
         }, audioDuration);
+        currentSongAudio = src;
       }
 
       function mute(e) {
@@ -334,57 +349,68 @@
         }
       }
 
-      function clickTrackCard() {
+      function clickTrackCard(card) {
         let cards = document.querySelectorAll(".track-card");
+        let bigCover = document.querySelector(".big-cover");
+        let bigRank = document.querySelector(".rank");
+        let bigTitle = document.querySelector(".song-title");
+        let bigArtist = document.querySelector(".song-artist");
+        let cardsRegion = document.querySelector(".right-wrapper");
+        let index = card.id;
+        let rank = Number(index) + 1;
 
-        cards.forEach(function(card) {
-          card.addEventListener("click", function() {
-            let bigCover = document.querySelector(".big-cover");
-            let bigRank = document.querySelector(".rank");
-            let bigTitle = document.querySelector(".song-title");
-            let bigArtist = document.querySelector(".song-artist");
-            let index = card.id;
-            let rank = Number(index) + 1;
+        bigCover.classList.add("hidden");
+        bigRank.classList.add("hidden");
+        bigTitle.classList.add("hidden");
+        bigArtist.classList.add("hidden");
 
-            bigCover.classList.add("hidden");
-            bigRank.classList.add("hidden");
-            bigTitle.classList.add("hidden");
-            bigArtist.classList.add("hidden");
+        // cardsRegion.disabled = true;
+        // setTimeout(function() {
+        //   cardsRegion.disabled = false;
+        // }, 1000);
 
-            setTimeout(function() {
-              if (currentTrackTimeRange === SHORT_TERM) {
-                bigCover.src = shortTermSongs.items[index].album.images[0].url;
-                bigRank.innerText = rank;
-                bigTitle.innerText = shortTermSongs.items[index].name;
-                bigArtist.innerText = "by " + shortTermSongs.items[index].artists[0].name;
-              }
-              else if (currentTrackTimeRange === MEDIUM_TERM) {
-                bigCover.src = mediumTermSongs.items[index].album.images[0].url;
-                bigRank.innerText = rank;
-                bigTitle.innerText = mediumTermSongs.items[index].name;
-                bigArtist.innerText = "by " + mediumTermSongs.items[index].artists[0].name;
-              }
-              else {
-                bigCover.src = longTermSongs.items[index].album.images[0].url;
-                bigRank.innerText = rank;
-                bigTitle.innerText = longTermSongs.items[index].name;
-                bigArtist.innerText = "by " + longTermSongs.items[index].artists[0].name;
-              }
-
-              bigCover.classList.remove("hidden");
-              bigRank.classList.remove("hidden");
-              bigTitle.classList.remove("hidden");
-              bigArtist.classList.remove("hidden");
-            }, 200)
-
-            card.parentElement.parentElement.classList.add("d-none");
-
-            let showCard = document.getElementById(currentIndex).parentElement.parentElement;
-            showCard.classList.remove("d-none");
-
-            currentIndex = index;
-          });
+        cards.forEach(function(card, i) {
+          card.disabled = true;
+          setTimeout(function() {
+            card.disabled = false;
+          }, 1500);
         });
+
+        setTimeout(function() {
+          if (currentTrackTimeRange === SHORT_TERM) {
+            initAudio(document.getElementById(shortTermSongs.items[Number(index)].uri))
+            bigCover.src = shortTermSongs.items[index].album.images[0].url;
+            bigRank.innerText = rank;
+            bigTitle.innerText = shortTermSongs.items[index].name;
+            bigArtist.innerText = "by " + shortTermSongs.items[index].artists[0].name;
+          }
+          else if (currentTrackTimeRange === MEDIUM_TERM) {
+            initAudio(document.getElementById(mediumTermSongs.items[Number(index)].uri))
+            bigCover.src = mediumTermSongs.items[index].album.images[0].url;
+            bigRank.innerText = rank;
+            bigTitle.innerText = mediumTermSongs.items[index].name;
+            bigArtist.innerText = "by " + mediumTermSongs.items[index].artists[0].name;
+          }
+          else {
+            initAudio(document.getElementById(longTermSongs.items[Number(index)].uri))
+            bigCover.src = longTermSongs.items[index].album.images[0].url;
+            bigRank.innerText = rank;
+            bigTitle.innerText = longTermSongs.items[index].name;
+            bigArtist.innerText = "by " + longTermSongs.items[index].artists[0].name;
+          }
+
+          bigCover.classList.remove("hidden");
+          bigRank.classList.remove("hidden");
+          bigTitle.classList.remove("hidden");
+          bigArtist.classList.remove("hidden");
+        }, 200)
+
+        card.parentElement.parentElement.classList.add("d-none");
+
+        let showCard = document.getElementById(currentIndex).parentElement.parentElement;
+        showCard.classList.remove("d-none");
+
+        currentIndex = index;
       }
 
       function changeTrackTime(mode) {
@@ -423,6 +449,8 @@
           let bigArtist = document.querySelector(".song-artist");
 
           if (mode === SHORT_TERM) {
+            initAudio(document.getElementById(shortTermSongs.items[0].uri))
+
             bigCover.classList.add("hidden");
             setTimeout(function() {
               bigCover.src = shortTermSongs.items[0].album.images[0].url;
@@ -464,6 +492,8 @@
             currentTrackTimeRange = SHORT_TERM;
           }
           else if (mode === MEDIUM_TERM) {
+            initAudio(document.getElementById(mediumTermSongs.items[0].uri))
+
             bigCover.classList.add("hidden");
             setTimeout(function() {
               bigCover.src = mediumTermSongs.items[0].album.images[0].url;
@@ -504,6 +534,8 @@
             currentTrackTimeRange = MEDIUM_TERM;
           }
           else if (mode === LONG_TERM) {
+            initAudio(document.getElementById(longTermSongs.items[0].uri))
+
             bigCover.classList.add("hidden");
             setTimeout(function() {
               bigCover.src = longTermSongs.items[0].album.images[0].url;
@@ -546,9 +578,8 @@
         }
       }
 
-      // init();
+      init();
       initNavBar();
-      clickTrackCard();
 
     </script>
   </body>
