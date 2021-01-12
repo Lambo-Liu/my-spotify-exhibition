@@ -12,7 +12,8 @@ const cors = require("cors");
 const querystring = require("querystring");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const url = require('url');
+const url = require("url");
+const aws = require("aws-sdk");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
