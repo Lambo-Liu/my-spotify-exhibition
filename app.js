@@ -3,6 +3,7 @@
 //   o Get statistics like danceability, accousticness, etc. into songs
 //   o Play artist songs
 //   o Figure out solution for 0 songs/artists listened to
+//   o Mute button / volume control
 //
 
 const http = require("http");
@@ -15,8 +16,11 @@ const path = require("path");
 const url = require("url");
 const aws = require("aws-sdk");
 
+var redirect_uri = "https://my-spotify-exhibition.herokuapp.com/stats"; // Redirect uri
+
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
+  redirect_uri = "http://localhost:3000/stats"; // Redirect uri
 }
 
 const app = express();
@@ -43,7 +47,6 @@ let s3 = new aws.S3({
 
 const client_id = s3.client_id || process.env.CLIENT_ID; // Client id
 const client_secret = s3.client_secret || process.env.CLIENT_SECRET; // Secret key
-const redirect_uri = "https://my-spotify-exhibition.herokuapp.com/stats"; // Redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -151,6 +154,8 @@ app.get("/stats", function(req, res) {
                 request.get(shortTermArtists, function(error, response, shortTermArtists) {
                   request.get(mediumTermArtists, function(error, response, mediumTermArtists) {
                     request.get(longTermArtists, function(error, response, longTermArtists) {
+                      shortTermSongs.total = 0;
+                      shortTermArtists.total = 0;
                       res.render("stats", {profile, shortTermSongs, mediumTermSongs, longTermSongs,
                                            shortTermArtists, mediumTermArtists, longTermArtists});
                     });
@@ -197,6 +202,6 @@ app.get("/", function(req, res) {
   res.render("home");
 });
 
-app.listen(port, function() {
+app.listen(port, function() {;
 	console.log("Server running");
 });

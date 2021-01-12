@@ -75,7 +75,11 @@
             <img class="album-inner shadow" src="/img/album-18.jpg" alt="Album cover">
           </div>
           <div class="flip-card-back">
-            <img class="album-flip-inner" src=<%= shortTermSongs.items[0].album.images[0].url %> alt="Album cover">
+            <% if (shortTermSongs.total < 1) { %>
+              <img class="album-flip-inner" src="/img/empty.jpg" alt="No song cover available">
+            <% } else { %>
+              <img class="album-flip-inner" src=<%=shortTermSongs.items[0].album.images[0].url%> alt="Album cover">
+            <% } %>
           </div>
         </div>
       </div>
@@ -94,16 +98,29 @@
 
     <section id="tracks" class="d-none hidden main-after bg-dark text-white text-left shadow-top" style="padding-bottom: 100px;">
       <div class="main-after d-flex flex-row flex-wrap">
-        <div class="col-lg-4 col-12 d-flex flex-column left-wrapper">
-          <img class="big-song-cover shadow" src=<%= shortTermSongs.items[0].album.images[0].url %> alt="Song cover">
-          <div class="text-left">
-            <div class="song-description-wrapper d-flex flex-row">
-              <div class="song-rank d-flex align-items-center justify-content-center">1</div>
-              <div class="d-flex align-items-center song-title line-cut-3"><%=shortTermSongs.items[0].name%></div>
+        <% if (shortTermSongs.total < 1) { %>
+          <div class="col-lg-4 col-12 d-flex flex-column left-wrapper">
+            <img class="big-song-cover shadow" src="/img/empty.jpg" style="background: #181818;" alt="No song cover available">
+            <div class="text-left">
+              <div class="song-description-wrapper d-flex flex-row">
+                <div class="song-rank d-flex align-items-center justify-content-center">1</div>
+                <div class="d-flex align-items-center song-title line-cut-3">No Track Found</div>
+              </div>
+              <p class="song-artist">Listen more to unlock more songs!</p>
             </div>
-            <p class="song-artist">by <span class="bold"><%=shortTermSongs.items[0].artists[0].name%></span></p>
           </div>
-        </div>
+        <% } else { %>
+          <div class="col-lg-4 col-12 d-flex flex-column left-wrapper">
+            <img class="big-song-cover shadow" src=<%= shortTermSongs.items[0].album.images[0].url %> alt="Song cover">
+            <div class="text-left">
+              <div class="song-description-wrapper d-flex flex-row">
+                <div class="song-rank d-flex align-items-center justify-content-center">1</div>
+                <div class="d-flex align-items-center song-title line-cut-3"><%=shortTermSongs.items[0].name%></div>
+              </div>
+              <p class="song-artist">by <span class="bold"><%=shortTermSongs.items[0].artists[0].name%></span></p>
+            </div>
+          </div>
+        <% } %>
         <div class="col-lg-8 col-12 right-wrapper main-after">
           <div class="d-flex flex-column">
             <div style="margin-bottom: 20px; margin-left: 0.5rem;">Top Tracks</div>
@@ -112,20 +129,21 @@
               <button class="btn-no-style track-time-range underline" onclick="changeTrackTime(2)"><small>6 Months</small></button>
               <button class="btn-no-style track-time-range underline" onclick="changeTrackTime(3)"><small>All Time</small></button>
             </div>
-            <div style="font-size: 0.4rem; font-style: italic; font-weight: 300; margin-left: 0.5rem; color: #B3B3B3; margin-bottom: 0.5rem;">
-              Click on a song to play its preview!
-            </div>
+          </div>
+
+          <div style="font-size: 0.4rem; font-style: italic; font-weight: 300; margin-left: 0.5rem; color: #B3B3B3; margin-bottom: 0.5rem;">
+            Click on a song to play its preview!
           </div>
           <div class="d-flex flex-row flex-wrap">
             <% for (let i = 0; i < 50; i++) { %>
               <% if (shortTermSongs.total <= i) { %>
-                <div class="col-xxl-4 col-md-6">
+                <div class="d-none col-xxl-4 col-md-6">
                   <div class="card-wrapper">
-                    <div class="w-100 card track-card shadow d-flex flex-row" id=song<%=i%>>
+                    <div class="btn-no-style w-100 card track-card shadow d-flex flex-row" onclick="clickTrackCard(this);" id=song<%=i%>>
                       <img class="small-song-cover" src="/img/empty.jpg" style="background: #181818; min-width: 80px;" alt="No song cover available">
                       <div class="small-song-rank h-100 d-flex align-items-center justify-content-center"><%=i+1%></div>
                       <div class="d-flex flex-column justify-content-center song-description-wrapper-small">
-                        <small class="line-cut-1 song-title-small">No Song Found</small>
+                        <small class="line-cut-1 song-title-small">No Track Found</small>
                         <small class="line-cut-1 song-artist-small">Listen more to unlock more songs!</small>
                       </div>
                     </div>
@@ -168,22 +186,39 @@
 
     <section id="artists" class="d-none hidden main-after bg-dark text-white text-left shadow-top">
       <div class="main-after d-flex flex-row flex-wrap">
-        <div class="col-lg-4 col-12 d-flex flex-column left-wrapper">
-          <div class="big-artist-cover-wrapper shadow">
-            <img class="big-artist-cover" src=<%= shortTermArtists.items[0].images[0].url %> alt="Artist image">
-          </div>
-          <div class="text-left">
-            <div class="artist-description-wrapper d-flex flex-row">
-              <div class="artist-rank d-flex align-items-center justify-content-center">1</div>
-              <div class="d-flex align-items-center artist-name line-cut-3"><%=shortTermArtists.items[0].name%></div>
+        <% if (shortTermArtists.total < 1) { %>
+          <div class="col-lg-4 col-12 d-flex flex-column left-wrapper">
+            <div class="big-artist-cover-wrapper shadow">
+              <img class="big-artist-cover" src="/img/empty.jpg" alt="No artist image available">
             </div>
-            <p class="artist-genre">
-              <% shortTermArtists.items[0].genres.forEach(function(genre) { %>
-                <%=genre%> <br/>
-              <% }); %>
-            </p>
+            <div class="text-left">
+              <div class="artist-description-wrapper d-flex flex-row">
+                <div class="artist-rank d-flex align-items-center justify-content-center">1</div>
+                <div class="d-flex align-items-center artist-name line-cut-3">No Artist Found</div>
+              </div>
+              <p class="artist-genre">
+                <% shortTermArtists.items[0].genres.forEach(function(genre) { %>
+                  <%=genre%> <br/>
+                <% }); %>
+              </p>
+            </div>
           </div>
-        </div>
+        <% } else { %>
+          <div class="col-lg-4 col-12 d-flex flex-column left-wrapper">
+            <div class="big-artist-cover-wrapper shadow">
+              <img class="big-artist-cover" src=<%= shortTermArtists.items[0].images[0].url %> alt="Artist image">
+            </div>
+            <div class="text-left">
+              <div class="artist-description-wrapper d-flex flex-row">
+                <div class="artist-rank d-flex align-items-center justify-content-center">1</div>
+                <div class="d-flex align-items-center artist-name line-cut-3"><%=shortTermArtists.items[0].name%></div>
+              </div>
+              <p class="artist-genre">
+                Listen more to unlock more artists!
+              </p>
+            </div>
+          </div>
+        <% } %>
         <div class="col-lg-8 col-12 right-wrapper main-after">
           <div class="d-flex flex-column">
             <div style="margin-bottom: 20px; margin-left: 0.5rem;">Top Artists</div>
@@ -199,9 +234,9 @@
           <div class="d-flex flex-row flex-wrap">
             <% for (let i = 0; i < 50; i++) { %>
               <% if (shortTermArtists.total <= i) { %>
-                <div class="col-xxl-4 col-md-6">
+                <div class="d-none col-xxl-4 col-md-6">
                   <div class="card-wrapper">
-                    <div class="w-100 card artist-card shadow d-flex flex-row" id=song<%=i%>>
+                    <div class="btn-no-style w-100 card artist-card shadow d-flex flex-row" onclick="clickArtistCard(this);" id=song<%=i%>>
                       <img class="small-artist-cover" src="/img/empty.jpg" style="background: #181818; min-width: 80px;" alt="No artist image available">
                       <div class="small-artist-rank h-100 d-flex align-items-center justify-content-center"><%=i+1%></div>
                       <div class="d-flex flex-column justify-content-center artist-description-wrapper-small">
@@ -295,25 +330,25 @@
     </section>
 
     <script>
-    const SHORT_TERM = 1;
-    const MEDIUM_TERM = 2;
-    const LONG_TERM = 3;
+      const SHORT_TERM = 1;
+      const MEDIUM_TERM = 2;
+      const LONG_TERM = 3;
 
-    const shortTermSongs = <%-JSON.stringify(shortTermSongs)%>
-    const mediumTermSongs = <%-JSON.stringify(mediumTermSongs)%>
-    const longTermSongs = <%-JSON.stringify(longTermSongs)%>
+      const shortTermSongs = <%-JSON.stringify(shortTermSongs)%>
+      const mediumTermSongs = <%-JSON.stringify(mediumTermSongs)%>
+      const longTermSongs = <%-JSON.stringify(longTermSongs)%>
 
-    const shortTermArtists = <%-JSON.stringify(shortTermArtists)%>
-    const mediumTermArtists = <%-JSON.stringify(mediumTermArtists)%>
-    const longTermArtists = <%-JSON.stringify(longTermArtists)%>
+      const shortTermArtists = <%-JSON.stringify(shortTermArtists)%>
+      const mediumTermArtists = <%-JSON.stringify(mediumTermArtists)%>
+      const longTermArtists = <%-JSON.stringify(longTermArtists)%>
 
-    const audioDuration = ((30 - 2) * 1000);
-    var currentSongAudio;
+      const audioDuration = ((30 - 2) * 1000);
+      var currentSongAudio;
 
-    var currentSongIndex = 0;
-    var currentArtistIndex = 0;
-    var currentTrackTimeRange = 1;
-    var currentArtistTimeRange = 1;
+      var currentSongIndex = 0;
+      var currentArtistIndex = 0;
+      var currentTrackTimeRange = 1;
+      var currentArtistTimeRange = 1;
 
       function initAlbums() {
         let main = document.querySelector(".main");
@@ -399,7 +434,9 @@
                 artists.classList.remove("hidden");
               }, 100);
             }, 600);
-            initAudio(document.getElementById(shortTermSongs.items[0].uri));
+            if (shortTermSongs.total >= 1) {
+              initAudio(document.getElementById(shortTermSongs.items[0].uri));
+            }
 
             let nav = document.querySelector(".nav-wrapper");
             nav.classList.remove("d-none");
@@ -410,7 +447,8 @@
 
       function initAudio(src) {
         if (currentSongAudio) {
-          currentSongAudio.volume = 0;
+          currentSongAudio.pause();
+          currentSongAudio.currentTime = 0;
         }
         src.volume = 0;
         src.currentTime = 0;
@@ -419,6 +457,9 @@
         setTimeout(function() {
           if (src.currentTime > 27.5) {
             $(src).animate({volume: 0}, 1500);
+            setTimeout(function() {
+              src.pause();
+            }, 1500);
           }
         }, audioDuration);
         currentSongAudio = src;
@@ -558,27 +599,47 @@
           let bigArtist = document.querySelector(".song-artist");
 
           if (mode === SHORT_TERM) {
-            initAudio(document.getElementById(shortTermSongs.items[0].uri))
-
-            bigCover.classList.add("hidden");
-            setTimeout(function() {
-              bigCover.src = shortTermSongs.items[0].album.images[0].url;
-              bigCover.classList.remove("hidden");
-              bigRank.classList.add("hidden");
-              bigTitle.classList.add("hidden");
+            if (shortTermSongs.total < 1) {
+              bigCover.classList.add("hidden");
               setTimeout(function() {
-                bigRank.innerText = 1;
-                bigTitle.innerText = shortTermSongs.items[0].name;
-                bigRank.classList.remove("hidden");
-                bigTitle.classList.remove("hidden");
-                bigArtist.classList.add("hidden");
+                bigCover.src = "img/empty.jpg";
+                bigCover.classList.remove("hidden");
+                bigRank.classList.add("hidden");
+                bigTitle.classList.add("hidden");
                 setTimeout(function() {
-                  bigArtist.innerText = "by " + shortTermSongs.items[0].artists[0].name;
-                  bigArtist.classList.remove("hidden");
-                }, 100)
-              }, 100)
-            }, 100)
+                  bigRank.innerText = 1;
+                  bigTitle.innerText = "No Track Found";
+                  bigRank.classList.remove("hidden");
+                  bigTitle.classList.remove("hidden");
+                  bigArtist.classList.add("hidden");
+                  setTimeout(function() {
+                    bigArtist.innerText = "Listen more to unlock more songs!";
+                    bigArtist.classList.remove("hidden");
+                  }, 100);
+                }, 100);
+              }, 100);
+            } else {
+              initAudio(document.getElementById(shortTermSongs.items[0].uri));
 
+              bigCover.classList.add("hidden");
+              setTimeout(function() {
+                bigCover.src = shortTermSongs.items[0].album.images[0].url;
+                bigCover.classList.remove("hidden");
+                bigRank.classList.add("hidden");
+                bigTitle.classList.add("hidden");
+                setTimeout(function() {
+                  bigRank.innerText = 1;
+                  bigTitle.innerText = shortTermSongs.items[0].name;
+                  bigRank.classList.remove("hidden");
+                  bigTitle.classList.remove("hidden");
+                  bigArtist.classList.add("hidden");
+                  setTimeout(function() {
+                    bigArtist.innerHTML = "by <span class='bold'>" + shortTermSongs.items[0].artists[0].name + "</span>";
+                    bigArtist.classList.remove("hidden");
+                  }, 100);
+                }, 100);
+              }, 100);
+            }
 
             cards.forEach(function(card, i) {
               if (shortTermSongs.items[i]) {
@@ -595,7 +656,7 @@
                     smallTitles[i].innerText = shortTermSongs.items[i].name;
                     smallArtists[i].innerText = shortTermSongs.items[i].artists[0].name;
                     card.classList.remove("hidden");
-                  }, 300)
+                  }, 300);
                 }, (i * 50));
               } else {
                 card.classList.add("hidden");
@@ -608,26 +669,47 @@
             currentTrackTimeRange = SHORT_TERM;
           }
           else if (mode === MEDIUM_TERM) {
-            initAudio(document.getElementById(mediumTermSongs.items[0].uri))
-
-            bigCover.classList.add("hidden");
-            setTimeout(function() {
-              bigCover.src = mediumTermSongs.items[0].album.images[0].url;
-              bigCover.classList.remove("hidden");
-              bigRank.classList.add("hidden");
-              bigTitle.classList.add("hidden");
+            if (mediumTermSongs.total < 1) {
+              bigCover.classList.add("hidden");
               setTimeout(function() {
-                bigRank.innerText = 1;
-                bigTitle.innerText = mediumTermSongs.items[0].name;
-                bigRank.classList.remove("hidden");
-                bigTitle.classList.remove("hidden");
-                bigArtist.classList.add("hidden");
+                bigCover.src = "img/empty.jpg";
+                bigCover.classList.remove("hidden");
+                bigRank.classList.add("hidden");
+                bigTitle.classList.add("hidden");
                 setTimeout(function() {
-                  bigArtist.innerText = "by " + mediumTermSongs.items[0].artists[0].name;
-                  bigArtist.classList.remove("hidden");
-                }, 100)
-              }, 100)
-            }, 100)
+                  bigRank.innerText = 1;
+                  bigTitle.innerText = "No Track Found";
+                  bigRank.classList.remove("hidden");
+                  bigTitle.classList.remove("hidden");
+                  bigArtist.classList.add("hidden");
+                  setTimeout(function() {
+                    bigArtist.innerText = "Listen more to unlock more songs!";
+                    bigArtist.classList.remove("hidden");
+                  }, 100);
+                }, 100);
+              }, 100);
+            } else {
+              initAudio(document.getElementById(mediumTermSongs.items[0].uri));
+
+              bigCover.classList.add("hidden");
+              setTimeout(function() {
+                bigCover.src = mediumTermSongs.items[0].album.images[0].url;
+                bigCover.classList.remove("hidden");
+                bigRank.classList.add("hidden");
+                bigTitle.classList.add("hidden");
+                setTimeout(function() {
+                  bigRank.innerText = 1;
+                  bigTitle.innerText = mediumTermSongs.items[0].name;
+                  bigRank.classList.remove("hidden");
+                  bigTitle.classList.remove("hidden");
+                  bigArtist.classList.add("hidden");
+                  setTimeout(function() {
+                    bigArtist.innerHTML = "by <span class='bold'>" + mediumTermSongs.items[0].artists[0].name + "</span>";
+                    bigArtist.classList.remove("hidden");
+                  }, 100);
+                }, 100);
+              }, 100);
+            }
 
             cards.forEach(function(card, i) {
               if (mediumTermSongs.items[i]) {
@@ -644,7 +726,7 @@
                     smallTitles[i].innerText = mediumTermSongs.items[i].name;
                     smallArtists[i].innerText = mediumTermSongs.items[i].artists[0].name;
                     card.classList.remove("hidden");
-                  }, 300)
+                  }, 300);
                 }, (i * 50));
               } else {
                 card.classList.add("hidden");
@@ -657,26 +739,47 @@
             currentTrackTimeRange = MEDIUM_TERM;
           }
           else if (mode === LONG_TERM) {
-            initAudio(document.getElementById(longTermSongs.items[0].uri))
-
-            bigCover.classList.add("hidden");
-            setTimeout(function() {
-              bigCover.src = longTermSongs.items[0].album.images[0].url;
-              bigCover.classList.remove("hidden");
-              bigRank.classList.add("hidden");
-              bigTitle.classList.add("hidden");
+            if (longTermSongs.total < 1) {
+              bigCover.classList.add("hidden");
               setTimeout(function() {
-                bigRank.innerText = 1;
-                bigTitle.innerText = longTermSongs.items[0].name;
-                bigRank.classList.remove("hidden");
-                bigTitle.classList.remove("hidden");
-                bigArtist.classList.add("hidden");
+                bigCover.src = "img/empty.jpg";
+                bigCover.classList.remove("hidden");
+                bigRank.classList.add("hidden");
+                bigTitle.classList.add("hidden");
                 setTimeout(function() {
-                  bigArtist.innerText = "by " + longTermSongs.items[0].artists[0].name;
-                  bigArtist.classList.remove("hidden");
+                  bigRank.innerText = 1;
+                  bigTitle.innerText = "No Track Found";
+                  bigRank.classList.remove("hidden");
+                  bigTitle.classList.remove("hidden");
+                  bigArtist.classList.add("hidden");
+                  setTimeout(function() {
+                    bigArtist.innerText = "Listen more to unlock more songs!";
+                    bigArtist.classList.remove("hidden");
+                  }, 100);
+                }, 100);
+              }, 100);
+            } else {
+              initAudio(document.getElementById(longTermSongs.items[0].uri));
+
+              bigCover.classList.add("hidden");
+              setTimeout(function() {
+                bigCover.src = longTermSongs.items[0].album.images[0].url;
+                bigCover.classList.remove("hidden");
+                bigRank.classList.add("hidden");
+                bigTitle.classList.add("hidden");
+                setTimeout(function() {
+                  bigRank.innerText = 1;
+                  bigTitle.innerText = longTermSongs.items[0].name;
+                  bigRank.classList.remove("hidden");
+                  bigTitle.classList.remove("hidden");
+                  bigArtist.classList.add("hidden");
+                  setTimeout(function() {
+                    bigArtist.innerHTML = "by <span class='bold'>" + longTermSongs.items[0].artists[0].name + "</span>";
+                    bigArtist.classList.remove("hidden");
+                  }, 100);
                 }, 100)
-              }, 100)
-            }, 100)
+              }, 100);
+            }
 
             cards.forEach(function(card, i) {
               if (longTermSongs.items[i]) {
@@ -693,7 +796,7 @@
                     smallTitles[i].innerText = longTermSongs.items[i].name;
                     smallArtists[i].innerText = longTermSongs.items[i].artists[0].name;
                     card.classList.remove("hidden");
-                  }, 300)
+                  }, 300);
                 }, (i * 50));
               } else {
                 card.classList.add("hidden");
@@ -721,13 +824,6 @@
         bigRank.classList.add("hidden");
         bigName.classList.add("hidden");
         bigGenre.classList.add("hidden");
-
-        cards.forEach(function(card, i) {
-          card.disabled = true;
-          setTimeout(function() {
-            card.disabled = false;
-          }, 1500);
-        });
 
         setTimeout(function() {
           if (currentArtistTimeRange === SHORT_TERM) {
@@ -814,31 +910,50 @@
           let bigGenre = document.querySelector(".artist-genre");
 
           if (mode === SHORT_TERM) {
-            // initAudio(document.getElementById(shortTermArtists.items[0].uri))
-
-            bigCover.classList.add("hidden");
-            setTimeout(function() {
-              bigCover.src = shortTermArtists.items[0].images[0].url;
-              bigCover.classList.remove("hidden");
-              bigRank.classList.add("hidden");
-              bigName.classList.add("hidden");
+            if (shortTermArtists.total < 1) {
+              bigCover.classList.add("hidden");
               setTimeout(function() {
-                bigRank.innerText = 1;
-                bigName.innerText = shortTermArtists.items[0].name;
-                bigRank.classList.remove("hidden");
-                bigName.classList.remove("hidden");
-                bigGenre.classList.add("hidden");
+                bigCover.src = "img/empty.jpg";
+                bigCover.classList.remove("hidden");
+                bigRank.classList.add("hidden");
+                bigName.classList.add("hidden");
                 setTimeout(function() {
-                  let genres = "";
-                  shortTermArtists.items[0].genres.forEach(function(genre) {
-                    genres += genre + "<br/>";
-                  });
-                  bigGenre.innerHTML = genres;
-                  bigGenre.classList.remove("hidden");
-                }, 100)
-              }, 100)
-            }, 100)
-
+                  bigRank.innerText = 1;
+                  bigName.innerText = "No Artist Found";
+                  bigRank.classList.remove("hidden");
+                  bigName.classList.remove("hidden");
+                  bigGenre.classList.add("hidden");
+                  setTimeout(function() {
+                    bigGenre.innerHTML = "Listen more to unlock more artists!";
+                    bigGenre.classList.remove("hidden");
+                  }, 100);
+                }, 100);
+              }, 100);
+            } else {
+              // initAudio(document.getElementById(shortTermArtists.items[0].uri));
+              bigCover.classList.add("hidden");
+              setTimeout(function() {
+                bigCover.src = shortTermArtists.items[0].images[0].url;
+                bigCover.classList.remove("hidden");
+                bigRank.classList.add("hidden");
+                bigName.classList.add("hidden");
+                setTimeout(function() {
+                  bigRank.innerText = 1;
+                  bigName.innerText = shortTermArtists.items[0].name;
+                  bigRank.classList.remove("hidden");
+                  bigName.classList.remove("hidden");
+                  bigGenre.classList.add("hidden");
+                  setTimeout(function() {
+                    let genres = "";
+                    shortTermArtists.items[0].genres.forEach(function(genre) {
+                      genres += genre + "<br/>";
+                    });
+                    bigGenre.innerHTML = genres;
+                    bigGenre.classList.remove("hidden");
+                  }, 100);
+                }, 100);
+              }, 100);
+            }
 
             cards.forEach(function(card, i) {
               if (shortTermArtists.items[i]) {
@@ -855,7 +970,7 @@
                     smallNames[i].innerText = shortTermArtists.items[i].name;
                     smallGenres[i].innerText = shortTermArtists.items[i].genres[0];
                     card.classList.remove("hidden");
-                  }, 300)
+                  }, 300);
                 }, (i * 50));
               } else {
                 card.classList.add("hidden");
@@ -868,30 +983,50 @@
             currentArtistTimeRange = SHORT_TERM;
           }
           else if (mode === MEDIUM_TERM) {
-            // initAudio(document.getElementById(mediumTermArtists.items[0].uri))
-
-            bigCover.classList.add("hidden");
-            setTimeout(function() {
-              bigCover.src = mediumTermArtists.items[0].images[0].url;
-              bigCover.classList.remove("hidden");
-              bigRank.classList.add("hidden");
-              bigName.classList.add("hidden");
+            if (mediumTermArtists.total < 1) {
+              bigCover.classList.add("hidden");
               setTimeout(function() {
-                bigRank.innerText = 1;
-                bigName.innerText = mediumTermArtists.items[0].name;
-                bigRank.classList.remove("hidden");
-                bigName.classList.remove("hidden");
-                bigGenre.classList.add("hidden");
+                bigCover.src = "img/empty.jpg";
+                bigCover.classList.remove("hidden");
+                bigRank.classList.add("hidden");
+                bigName.classList.add("hidden");
                 setTimeout(function() {
-                  let genres = "";
-                  mediumTermArtists.items[0].genres.forEach(function(genre) {
-                    genres += genre + "<br/>";
-                  });
-                  bigGenre.innerHTML = genres;
-                  bigGenre.classList.remove("hidden");
-                }, 100)
-              }, 100)
-            }, 100)
+                  bigRank.innerText = 1;
+                  bigName.innerText = "No Artist Found";
+                  bigRank.classList.remove("hidden");
+                  bigName.classList.remove("hidden");
+                  bigGenre.classList.add("hidden");
+                  setTimeout(function() {
+                    bigGenre.innerHTML = "Listen more to unlock more artists!";
+                    bigGenre.classList.remove("hidden");
+                  }, 100);
+                }, 100);
+              }, 100);
+            } else {
+              // initAudio(document.getElementById(mediumTermArtists.items[0].uri));
+              bigCover.classList.add("hidden");
+              setTimeout(function() {
+                bigCover.src = mediumTermArtists.items[0].images[0].url;
+                bigCover.classList.remove("hidden");
+                bigRank.classList.add("hidden");
+                bigName.classList.add("hidden");
+                setTimeout(function() {
+                  bigRank.innerText = 1;
+                  bigName.innerText = mediumTermArtists.items[0].name;
+                  bigRank.classList.remove("hidden");
+                  bigName.classList.remove("hidden");
+                  bigGenre.classList.add("hidden");
+                  setTimeout(function() {
+                    let genres = "";
+                    mediumTermArtists.items[0].genres.forEach(function(genre) {
+                      genres += genre + "<br/>";
+                    });
+                    bigGenre.innerHTML = genres;
+                    bigGenre.classList.remove("hidden");
+                  }, 100);
+                }, 100);
+              }, 100);
+            }
 
             cards.forEach(function(card, i) {
               if (mediumTermArtists.items[i]) {
@@ -908,7 +1043,7 @@
                     smallNames[i].innerText = mediumTermArtists.items[i].name;
                     smallGenres[i].innerText = mediumTermArtists.items[i].genres[0];
                     card.classList.remove("hidden");
-                  }, 300)
+                  }, 300);
                 }, (i * 50));
               } else {
                 card.classList.add("hidden");
@@ -921,30 +1056,50 @@
             currentArtistTimeRange = MEDIUM_TERM;
           }
           else if (mode === LONG_TERM) {
-            // initAudio(document.getElementById(longTermArtists.items[0].uri))
-
-            bigCover.classList.add("hidden");
-            setTimeout(function() {
-              bigCover.src = longTermArtists.items[0].images[0].url;
-              bigCover.classList.remove("hidden");
-              bigRank.classList.add("hidden");
-              bigName.classList.add("hidden");
+            if (longTermArtists.total < 1) {
+              bigCover.classList.add("hidden");
               setTimeout(function() {
-                bigRank.innerText = 1;
-                bigName.innerText = longTermArtists.items[0].name;
-                bigRank.classList.remove("hidden");
-                bigName.classList.remove("hidden");
-                bigGenre.classList.add("hidden");
+                bigCover.src = "img/empty.jpg";
+                bigCover.classList.remove("hidden");
+                bigRank.classList.add("hidden");
+                bigName.classList.add("hidden");
                 setTimeout(function() {
-                  let genres = "";
-                  longTermArtists.items[0].genres.forEach(function(genre) {
-                    genres += genre + "<br/>";
-                  });
-                  bigGenre.innerHTML = genres;
-                  bigGenre.classList.remove("hidden");
-                }, 100)
-              }, 100)
-            }, 100)
+                  bigRank.innerText = 1;
+                  bigName.innerText = "No Artist Found";
+                  bigRank.classList.remove("hidden");
+                  bigName.classList.remove("hidden");
+                  bigGenre.classList.add("hidden");
+                  setTimeout(function() {
+                    bigGenre.innerHTML = "Listen more to unlock more artists!";
+                    bigGenre.classList.remove("hidden");
+                  }, 100);
+                }, 100);
+              }, 100);
+            } else {
+              // initAudio(document.getElementById(longTermArtists.items[0].uri));
+              bigCover.classList.add("hidden");
+              setTimeout(function() {
+                bigCover.src = longTermArtists.items[0].images[0].url;
+                bigCover.classList.remove("hidden");
+                bigRank.classList.add("hidden");
+                bigName.classList.add("hidden");
+                setTimeout(function() {
+                  bigRank.innerText = 1;
+                  bigName.innerText = longTermArtists.items[0].name;
+                  bigRank.classList.remove("hidden");
+                  bigName.classList.remove("hidden");
+                  bigGenre.classList.add("hidden");
+                  setTimeout(function() {
+                    let genres = "";
+                    longTermArtists.items[0].genres.forEach(function(genre) {
+                      genres += genre + "<br/>";
+                    });
+                    bigGenre.innerHTML = genres;
+                    bigGenre.classList.remove("hidden");
+                  }, 100);
+                }, 100);
+              }, 100);
+            }
 
             cards.forEach(function(card, i) {
               if (longTermArtists.items[i]) {
@@ -961,7 +1116,7 @@
                     smallNames[i].innerText = longTermArtists.items[i].name;
                     smallGenres[i].innerText = longTermArtists.items[i].genres[0];
                     card.classList.remove("hidden");
-                  }, 300)
+                  }, 300);
                 }, (i * 50));
               } else {
                 card.classList.add("hidden");
