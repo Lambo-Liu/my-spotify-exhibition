@@ -17,7 +17,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <section class="main bg-light shadow-top">
+    <section class="absolute main bg-light shadow-top">
       <div class="album album-after" id="album-1">
         <img class="album-inner shadow" src="/img/album-1.jpg" alt="Album cover">
       </div>
@@ -92,7 +92,7 @@
       <span class="bg-expand"></span>
     </section>
 
-    <section id="tracks" class="main-after bg-dark text-white text-left shadow-top">
+    <section id="tracks" class="d-none hidden main-after bg-dark text-white text-left shadow-top">
       <div class="main-after d-flex flex-row flex-wrap">
         <div class="col-lg-4 col-12 d-flex flex-column left-wrapper">
           <img class="big-cover shadow" src=<%= shortTermSongs.items[0].album.images[0].url %> alt="Song cover">
@@ -269,9 +269,7 @@
             backgroundExpand.remove();
 
             for (var i = 0; i < albums.length; i++) {
-              if (i === albums.length - 1) {
-
-              } else {
+              if (i !== albums.length - 1) {
                 albums[i].parentElement.remove();
               }
             }
@@ -286,7 +284,10 @@
               flip.parentElement.classList.remove("album-after");
               flip.parentElement.classList.remove("album");
               flip.parentElement.removeAttribute("id");
-            }, 1000);
+              let tracks = document.getElementById("tracks");
+              tracks.classList.remove("d-none");
+              tracks.classList.remove("hidden");
+            }, 600);
             initAudio(document.getElementById(shortTermSongs.items[0].uri));
 
             let nav = document.querySelector(".nav-wrapper");
@@ -301,10 +302,13 @@
           currentSongAudio.volume = 0;
         }
         src.volume = 0;
+        src.currentTime = 0;
         src.play();
         $(src).animate({volume: 1}, 1500);
         setTimeout(function() {
-          $(src).animate({volume: 0}, 1500);
+          if (src.currentTime > 27.5) {
+            $(src).animate({volume: 0}, 1500);
+          }
         }, audioDuration);
         currentSongAudio = src;
       }
@@ -363,11 +367,6 @@
         bigRank.classList.add("hidden");
         bigTitle.classList.add("hidden");
         bigArtist.classList.add("hidden");
-
-        // cardsRegion.disabled = true;
-        // setTimeout(function() {
-        //   cardsRegion.disabled = false;
-        // }, 1000);
 
         cards.forEach(function(card, i) {
           card.disabled = true;
