@@ -166,10 +166,28 @@ body {
   padding: 2rem;
 }
 
-.big-cover {
+.big-song-cover {
   width: 100%;
   height: auto;
+  object-fit: cover;
   transition: all 0.3s ease;
+}
+
+.big-artist-cover-wrapper {
+  position: relative;
+}
+
+.big-artist-cover-wrapper::after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.big-artist-cover-wrapper img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .song-title, .artist-name {
@@ -202,23 +220,23 @@ body {
   background-color: #181818;
   border-radius: 0.25rem;
   height: 80px;
-  cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.small-cover {
-  height: 100%;
+.small-song-cover, .small-artist-cover {
+  height: 80px;
+  width: 80px;
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
-  width: auto;
+  object-fit: cover;
 }
 
-.song-description-wrapper {
+.song-description-wrapper, .artist-description-wrapper {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-.song-description-wrapper-small {
+.song-description-wrapper-small, .artist-description-wrapper-small {
   margin-top: 15px;
   margin-bottom: 15px;
   margin-right: 20px;
@@ -235,7 +253,7 @@ body {
   font-weight: 300;
 }
 
-.rank {
+.song-rank, .artist-rank {
   background-color: #282828;
   min-width: 60px;
   width: 60px;
@@ -247,7 +265,7 @@ body {
   transition: all 0.3s ease;
 }
 
-.rank-small {
+.small-song-rank, .small-artist-rank {
   background-color: #141414;
   min-width: 55px;
   width: 55px;
@@ -286,7 +304,7 @@ body {
   color: #F7F7F7 !important;
 }
 
-.time-range {
+.track-time-range, .artist-time-range {
   font-size: 0.6rem;
   font-weight: 300;
   margin-left: 0.5rem;
@@ -296,14 +314,14 @@ body {
   transition: all 0.3s linear;
 }
 
-.time-range:hover {
+.track-time-range:hover, .artist-time-range:hover {
   background: -webkit-linear-gradient(158deg, rgba(44,153,255,1) 0%, rgba(29,185,84,1) 100%);
   filter: brightness(150%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.time-range.active {
+.track-time-range.active, .artist-time-range.active {
   font-weight: 500;
   background: -webkit-linear-gradient(158deg, rgba(44,153,255,1) 0%, rgba(29,185,84,1) 100%);
   filter: brightness(150%);
@@ -311,7 +329,7 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-.time-range:after {
+.track-time-range:after, .artist-time-range:after {
   content: '';
   position: absolute;
   left: 0;
@@ -322,16 +340,16 @@ body {
   transition: all 0.3s ease;
 }
 
-.time-range.active:after {
+.track-time-range.active:after, .artist-time-range.active:after {
   width: 100%;
 }
 
 #tracks {
-  transition: opacity 1s ease;
+  transition: opacity 1s ease !important;
 }
 
 #artists {
-  transition: opacity 1s ease;
+  transition: opacity 1s ease !important;
 }
 
 @media (min-width: 992px) {

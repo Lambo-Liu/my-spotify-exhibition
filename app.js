@@ -1,8 +1,8 @@
 //
 //  TO-DO LIST:
-//   o Get data from API
-//   o Organize data into object and pass into stats
-//   o Frontend design for /stats page
+//   o Get statistics like danceability, accousticness, etc. into songs
+//   o Play artist songs
+//   o Figure out solution for 0 songs/artists listened to
 //
 
 const http = require("http");

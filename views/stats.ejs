@@ -92,13 +92,13 @@
       <span class="bg-expand"></span>
     </section>
 
-    <section id="tracks" class="d-none hidden main-after bg-dark text-white text-left shadow-top">
+    <section id="tracks" class="d-none hidden main-after bg-dark text-white text-left shadow-top" style="padding-bottom: 100px;">
       <div class="main-after d-flex flex-row flex-wrap">
         <div class="col-lg-4 col-12 d-flex flex-column left-wrapper">
-          <img class="big-cover shadow" src=<%= shortTermSongs.items[0].album.images[0].url %> alt="Song cover">
+          <img class="big-song-cover shadow" src=<%= shortTermSongs.items[0].album.images[0].url %> alt="Song cover">
           <div class="text-left">
             <div class="song-description-wrapper d-flex flex-row">
-              <div class="rank d-flex align-items-center justify-content-center">1</div>
+              <div class="song-rank d-flex align-items-center justify-content-center">1</div>
               <div class="d-flex align-items-center song-title line-cut-3"><%=shortTermSongs.items[0].name%></div>
             </div>
             <p class="song-artist">by <span class="bold"><%=shortTermSongs.items[0].artists[0].name%></span></p>
@@ -108,44 +108,141 @@
           <div class="d-flex flex-column">
             <div style="margin-bottom: 20px; margin-left: 0.5rem;">Top Tracks</div>
             <div class="d-flex flex-row">
-              <button class="btn-no-style time-range underline active" onclick="changeTrackTime(1)"><small>4 Weeks</small></button>
-              <button class="btn-no-style time-range underline" onclick="changeTrackTime(2)"><small>6 Months</small></button>
-              <button class="btn-no-style time-range underline" onclick="changeTrackTime(3)"><small>All Time</small></button>
+              <button class="btn-no-style track-time-range underline active" onclick="changeTrackTime(1)"><small>4 Weeks</small></button>
+              <button class="btn-no-style track-time-range underline" onclick="changeTrackTime(2)"><small>6 Months</small></button>
+              <button class="btn-no-style track-time-range underline" onclick="changeTrackTime(3)"><small>All Time</small></button>
             </div>
             <div style="font-size: 0.4rem; font-style: italic; font-weight: 300; margin-left: 0.5rem; color: #B3B3B3; margin-bottom: 0.5rem;">
               Click on a song to play its preview!
             </div>
           </div>
           <div class="d-flex flex-row flex-wrap">
-            <% shortTermSongs.items.forEach(function(song, i) { %>
-              <% if (i !== 0) { %>
+            <% for (let i = 0; i < 50; i++) { %>
+              <% if (shortTermSongs.total <= i) { %>
                 <div class="col-xxl-4 col-md-6">
                   <div class="card-wrapper">
-                    <button class="btn-no-style w-100 card track-card shadow d-flex flex-row" onclick="clickTrackCard(this);" id=<%=i%>>
-                      <img class="small-cover" src=<%=song.album.images[0].url%> alt="Song cover">
-                      <div class="rank-small h-100 d-flex align-items-center justify-content-center"><%=i+1%></div>
+                    <div class="w-100 card track-card shadow d-flex flex-row" id=song<%=i%>>
+                      <img class="small-song-cover" src="/img/empty.jpg" style="background: #181818; min-width: 80px;" alt="No song cover available">
+                      <div class="small-song-rank h-100 d-flex align-items-center justify-content-center"><%=i+1%></div>
                       <div class="d-flex flex-column justify-content-center song-description-wrapper-small">
-                        <small class="line-cut-1 song-title-small"><%=song.name%></small>
-                        <small class="line-cut-1 song-artist-small"><%=song.artists[0].name%></small>
+                        <small class="line-cut-1 song-title-small">No Song Found</small>
+                        <small class="line-cut-1 song-artist-small">Listen more to unlock more songs!</small>
                       </div>
-                    </button>
+                    </div>
                   </div>
                 </div>
               <% } else { %>
-                <div class="d-none col-xxl-4 col-lg-6 col-12">
+                <% if (i !== 0) { %>
+                  <div class="col-xxl-4 col-md-6">
+                    <div class="card-wrapper">
+                      <button class="btn-no-style w-100 card track-card shadow d-flex flex-row" onclick="clickTrackCard(this);" id=song<%=i%>>
+                        <img class="small-song-cover" src=<%=shortTermSongs.items[i].album.images[0].url%> alt="Song cover">
+                        <div class="small-song-rank h-100 d-flex align-items-center justify-content-center"><%=i+1%></div>
+                        <div class="d-flex flex-column justify-content-center song-description-wrapper-small">
+                          <small class="line-cut-1 song-title-small"><%=shortTermSongs.items[i].name%></small>
+                          <small class="line-cut-1 song-artist-small"><%=shortTermSongs.items[i].artists[0].name%></small>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                <% } else { %>
+                  <div class="d-none col-xxl-4 col-lg-6 col-12">
+                    <div class="card-wrapper">
+                      <button class="btn-no-style w-100 card track-card shadow d-flex flex-row" onclick="clickTrackCard(this);" id=song<%=i%>>
+                        <img class="small-song-cover" src=<%=shortTermSongs.items[i].album.images[0].url%> alt="Song cover">
+                        <div class="small-song-rank h-100 d-flex align-items-center justify-content-center"><%=i+1%></div>
+                        <div class="d-flex flex-column justify-content-center song-description-wrapper-small">
+                          <small class="line-cut-1 song-title-small"><%=shortTermSongs.items[i].name%></small>
+                          <small class="line-cut-1 song-artist-small"><%=shortTermSongs.items[i].artists[0].name%></small>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                <% } %>
+              <% } %>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="artists" class="d-none hidden main-after bg-dark text-white text-left shadow-top">
+      <div class="main-after d-flex flex-row flex-wrap">
+        <div class="col-lg-4 col-12 d-flex flex-column left-wrapper">
+          <div class="big-artist-cover-wrapper shadow">
+            <img class="big-artist-cover" src=<%= shortTermArtists.items[0].images[0].url %> alt="Artist image">
+          </div>
+          <div class="text-left">
+            <div class="artist-description-wrapper d-flex flex-row">
+              <div class="artist-rank d-flex align-items-center justify-content-center">1</div>
+              <div class="d-flex align-items-center artist-name line-cut-3"><%=shortTermArtists.items[0].name%></div>
+            </div>
+            <p class="artist-genre">
+              <% shortTermArtists.items[0].genres.forEach(function(genre) { %>
+                <%=genre%> <br/>
+              <% }); %>
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-8 col-12 right-wrapper main-after">
+          <div class="d-flex flex-column">
+            <div style="margin-bottom: 20px; margin-left: 0.5rem;">Top Artists</div>
+            <div class="d-flex flex-row">
+              <button class="btn-no-style artist-time-range underline active" onclick="changeArtistTime(1)"><small>4 Weeks</small></button>
+              <button class="btn-no-style artist-time-range underline" onclick="changeArtistTime(2)"><small>6 Months</small></button>
+              <button class="btn-no-style artist-time-range underline" onclick="changeArtistTime(3)"><small>All Time</small></button>
+            </div>
+            <div style="font-size: 0.4rem; font-style: italic; font-weight: 300; margin-left: 0.5rem; color: #B3B3B3; margin-bottom: 0.5rem;">
+              Click on an artist to play their top song!
+            </div>
+          </div>
+          <div class="d-flex flex-row flex-wrap">
+            <% for (let i = 0; i < 50; i++) { %>
+              <% if (shortTermArtists.total <= i) { %>
+                <div class="col-xxl-4 col-md-6">
                   <div class="card-wrapper">
-                    <button class="btn-no-style w-100 card track-card shadow d-flex flex-row" onclick="clickTrackCard(this);" id=<%=i%>>
-                      <img class="small-cover" src=<%=song.album.images[0].url%> alt="Song cover">
-                      <div class="rank-small h-100 d-flex align-items-center justify-content-center"><%=i+1%></div>
-                      <div class="d-flex flex-column justify-content-center song-description-wrapper-small">
-                        <small class="line-cut-1 song-title-small"><%=song.name%></small>
-                        <small class="line-cut-1 song-artist-small"><%=song.artists[0].name%></small>
+                    <div class="w-100 card artist-card shadow d-flex flex-row" id=song<%=i%>>
+                      <img class="small-artist-cover" src="/img/empty.jpg" style="background: #181818; min-width: 80px;" alt="No artist image available">
+                      <div class="small-artist-rank h-100 d-flex align-items-center justify-content-center"><%=i+1%></div>
+                      <div class="d-flex flex-column justify-content-center artist-description-wrapper-small">
+                        <small class="line-cut-1 artist-name-small">No Artist Found</small>
+                        <small class="line-cut-1 artist-genre-small">Listen more to unlock more artists!</small>
                       </div>
-                    </button>
+                    </div>
                   </div>
                 </div>
+              <% } else { %>
+                <% if (i !== 0) { %>
+                  <div class="col-xxl-4 col-md-6">
+                    <div class="card-wrapper">
+                      <button class="btn-no-style w-100 card artist-card shadow d-flex flex-row" onclick="clickArtistCard(this);" id=artist<%=i%>>
+                        <div class="small-artist-cover-wrapper">
+                          <img class="small-artist-cover" src=<%=shortTermArtists.items[i].images[0].url%> alt="Artist image">
+                        </div>
+                        <div class="small-artist-rank h-100 d-flex align-items-center justify-content-center"><%=i+1%></div>
+                        <div class="d-flex flex-column justify-content-center artist-description-wrapper-small">
+                          <small class="line-cut-1 artist-name-small"><%=shortTermArtists.items[i].name%></small>
+                          <small class="line-cut-1 artist-genre-small"><%=shortTermArtists.items[i].genres[0]%></small>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                <% } else { %>
+                  <div class="d-none col-xxl-4 col-lg-6 col-12">
+                    <div class="card-wrapper">
+                      <button class="btn-no-style w-100 card artist-card shadow d-flex flex-row" onclick="clickArtistCard(this);" id=artist<%=i%>>
+                        <img class="small-artist-cover" src=<%=shortTermArtists.items[i].images[0].url%> alt="Artist image">
+                        <div class="small-artist-rank h-100 d-flex align-items-center justify-content-center"><%=i+1%></div>
+                        <div class="d-flex flex-column justify-content-center artist-description-wrapper-small">
+                          <small class="line-cut-1 artist-name-small"><%=shortTermArtists.items[i].name%></small>
+                          <small class="line-cut-1 artist-genre-small"><%=shortTermArtists.items[i].genres[0]%></small>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                <% } %>
               <% } %>
-            <% }); %>
+            <% } %>
           </div>
         </div>
       </div>
@@ -206,11 +303,17 @@
     const mediumTermSongs = <%-JSON.stringify(mediumTermSongs)%>
     const longTermSongs = <%-JSON.stringify(longTermSongs)%>
 
+    const shortTermArtists = <%-JSON.stringify(shortTermArtists)%>
+    const mediumTermArtists = <%-JSON.stringify(mediumTermArtists)%>
+    const longTermArtists = <%-JSON.stringify(longTermArtists)%>
+
     const audioDuration = ((30 - 2) * 1000);
     var currentSongAudio;
 
-    var currentIndex = 0;
+    var currentSongIndex = 0;
+    var currentArtistIndex = 0;
     var currentTrackTimeRange = 1;
+    var currentArtistTimeRange = 1;
 
       function initAlbums() {
         let main = document.querySelector(".main");
@@ -237,6 +340,7 @@
         setTimeout(function() {
           let main = document.querySelector(".main");
           main.style.background = "#141414";
+          document.body.style.background = "#141414";
           const directions = ["left", "right", "right", "right", "right", "left", "right", "right", "right",
                             "left", "right", "left", "right", "left", "left", "right", "left", "left"];
 
@@ -286,15 +390,22 @@
               flip.parentElement.removeAttribute("id");
               let tracks = document.getElementById("tracks");
               tracks.classList.remove("d-none");
-              tracks.classList.remove("hidden");
+              setTimeout(function() {
+                tracks.classList.remove("hidden");
+              }, 100);
+              let artists = document.getElementById("artists");
+              artists.classList.remove("d-none");
+              setTimeout(function() {
+                artists.classList.remove("hidden");
+              }, 100);
             }, 600);
             initAudio(document.getElementById(shortTermSongs.items[0].uri));
 
             let nav = document.querySelector(".nav-wrapper");
             nav.classList.remove("d-none");
             nav.classList.remove("hidden");
-          }, 3000)
-        }, 700)
+          }, 3000);
+        }, 700);
       }
 
       function initAudio(src) {
@@ -355,12 +466,11 @@
 
       function clickTrackCard(card) {
         let cards = document.querySelectorAll(".track-card");
-        let bigCover = document.querySelector(".big-cover");
-        let bigRank = document.querySelector(".rank");
+        let bigCover = document.querySelector(".big-song-cover");
+        let bigRank = document.querySelector(".song-rank");
         let bigTitle = document.querySelector(".song-title");
         let bigArtist = document.querySelector(".song-artist");
-        let cardsRegion = document.querySelector(".right-wrapper");
-        let index = card.id;
+        let index = card.id.replace(/^\D+/g, '');
         let rank = Number(index) + 1;
 
         bigCover.classList.add("hidden");
@@ -406,10 +516,10 @@
 
         card.parentElement.parentElement.classList.add("d-none");
 
-        let showCard = document.getElementById(currentIndex).parentElement.parentElement;
+        let showCard = document.getElementById("song" + currentSongIndex).parentElement.parentElement;
         showCard.classList.remove("d-none");
 
-        currentIndex = index;
+        currentSongIndex = index;
       }
 
       function changeTrackTime(mode) {
@@ -420,7 +530,7 @@
           return;
         }
         else {
-          let btns = document.querySelectorAll(".time-range");
+          let btns = document.querySelectorAll(".track-time-range");
 
           btns.forEach(function(btn, i) {
             btn.disabled = true;
@@ -435,15 +545,15 @@
             }
           });
 
-          currentIndex = 0;
+          currentSongIndex = 0;
           let cards = document.querySelectorAll(".track-card");
-          let smallCovers = document.querySelectorAll(".small-cover");
-          let smallRanks = document.querySelectorAll(".rank-small");
+          let smallCovers = document.querySelectorAll(".small-song-cover");
+          let smallRanks = document.querySelectorAll(".small-song-rank");
           let smallTitles = document.querySelectorAll(".song-title-small");
           let smallArtists = document.querySelectorAll(".song-artist-small");
 
-          let bigCover = document.querySelector(".big-cover");
-          let bigRank = document.querySelector(".rank");
+          let bigCover = document.querySelector(".big-song-cover");
+          let bigRank = document.querySelector(".song-rank");
           let bigTitle = document.querySelector(".song-title");
           let bigArtist = document.querySelector(".song-artist");
 
@@ -471,21 +581,28 @@
 
 
             cards.forEach(function(card, i) {
-              card.parentElement.parentElement.classList.remove("d-none");
-              if (i === 0) {
-                card.parentElement.parentElement.classList.add("d-none");
-              }
-              card.id = i;
-              setTimeout(function() {
+              if (shortTermSongs.items[i]) {
+                card.parentElement.parentElement.classList.remove("d-none");
+                if (i === 0) {
+                  card.parentElement.parentElement.classList.add("d-none");
+                }
+                card.id = "song" + i;
+                setTimeout(function() {
+                  card.classList.add("hidden");
+                  setTimeout(function() {
+                    smallCovers[i].src = shortTermSongs.items[i].album.images[0].url;
+                    smallRanks[i].innerText = i + 1;
+                    smallTitles[i].innerText = shortTermSongs.items[i].name;
+                    smallArtists[i].innerText = shortTermSongs.items[i].artists[0].name;
+                    card.classList.remove("hidden");
+                  }, 300)
+                }, (i * 50));
+              } else {
                 card.classList.add("hidden");
                 setTimeout(function() {
-                  smallCovers[i].src = shortTermSongs.items[i].album.images[0].url;
-                  smallRanks[i].innerText = i + 1;
-                  smallTitles[i].innerText = shortTermSongs.items[i].name;
-                  smallArtists[i].innerText = shortTermSongs.items[i].artists[0].name;
-                  card.classList.remove("hidden");
-                }, 300)
-              }, (i * 50));
+                  card.classList.add("d-none");
+                }, 350);
+              }
             });
 
             currentTrackTimeRange = SHORT_TERM;
@@ -513,21 +630,28 @@
             }, 100)
 
             cards.forEach(function(card, i) {
-              card.parentElement.parentElement.classList.remove("d-none");
-              if (i === 0) {
-                card.parentElement.parentElement.classList.add("d-none");
-              }
-              card.id = i;
-              setTimeout(function() {
+              if (mediumTermSongs.items[i]) {
+                card.parentElement.parentElement.classList.remove("d-none");
+                if (i === 0) {
+                  card.parentElement.parentElement.classList.add("d-none");
+                }
+                card.id = "song" + i;
+                setTimeout(function() {
+                  card.classList.add("hidden");
+                  setTimeout(function() {
+                    smallCovers[i].src = mediumTermSongs.items[i].album.images[0].url;
+                    smallRanks[i].innerText = i + 1;
+                    smallTitles[i].innerText = mediumTermSongs.items[i].name;
+                    smallArtists[i].innerText = mediumTermSongs.items[i].artists[0].name;
+                    card.classList.remove("hidden");
+                  }, 300)
+                }, (i * 50));
+              } else {
                 card.classList.add("hidden");
                 setTimeout(function() {
-                  smallCovers[i].src = mediumTermSongs.items[i].album.images[0].url;
-                  smallRanks[i].innerText = i + 1;
-                  smallTitles[i].innerText = mediumTermSongs.items[i].name;
-                  smallArtists[i].innerText = mediumTermSongs.items[i].artists[0].name;
-                  card.classList.remove("hidden");
-                }, 300)
-              }, (i * 50));
+                  card.classList.add("d-none");
+                }, 350);
+              }
             });
 
             currentTrackTimeRange = MEDIUM_TERM;
@@ -555,24 +679,299 @@
             }, 100)
 
             cards.forEach(function(card, i) {
-              card.parentElement.parentElement.classList.remove("d-none");
-              if (i === 0) {
-                card.parentElement.parentElement.classList.add("d-none");
-              }
-              card.id = i;
-              setTimeout(function() {
+              if (longTermSongs.items[i]) {
+                card.parentElement.parentElement.classList.remove("d-none");
+                if (i === 0) {
+                  card.parentElement.parentElement.classList.add("d-none");
+                }
+                card.id = "song" + i;
+                setTimeout(function() {
+                  card.classList.add("hidden");
+                  setTimeout(function() {
+                    smallCovers[i].src = longTermSongs.items[i].album.images[0].url;
+                    smallRanks[i].innerText = i + 1;
+                    smallTitles[i].innerText = longTermSongs.items[i].name;
+                    smallArtists[i].innerText = longTermSongs.items[i].artists[0].name;
+                    card.classList.remove("hidden");
+                  }, 300)
+                }, (i * 50));
+              } else {
                 card.classList.add("hidden");
                 setTimeout(function() {
-                  smallCovers[i].src = longTermSongs.items[i].album.images[0].url;
-                  smallRanks[i].innerText = i + 1;
-                  smallTitles[i].innerText = longTermSongs.items[i].name;
-                  smallArtists[i].innerText = longTermSongs.items[i].artists[0].name;
-                  card.classList.remove("hidden");
-                }, 300)
-              }, (i * 50));
+                  card.classList.add("d-none");
+                }, 350);
+              }
             });
 
             currentTrackTimeRange = LONG_TERM;
+          }
+        }
+      }
+
+      function clickArtistCard(card) {
+        let cards = document.querySelectorAll(".artist-card");
+        let bigCover = document.querySelector(".big-artist-cover");
+        let bigRank = document.querySelector(".artist-rank");
+        let bigName = document.querySelector(".artist-name");
+        let bigGenre = document.querySelector(".artist-genre");
+        let index = card.id.replace(/^\D+/g, '');
+        let rank = Number(index) + 1;
+
+        bigCover.classList.add("hidden");
+        bigRank.classList.add("hidden");
+        bigName.classList.add("hidden");
+        bigGenre.classList.add("hidden");
+
+        cards.forEach(function(card, i) {
+          card.disabled = true;
+          setTimeout(function() {
+            card.disabled = false;
+          }, 1500);
+        });
+
+        setTimeout(function() {
+          if (currentArtistTimeRange === SHORT_TERM) {
+            // initAudio(document.getElementById(shortTermArtists.items[Number(index)].uri))
+            bigCover.src = shortTermArtists.items[index].images[0].url;
+            bigRank.innerText = rank;
+            bigName.innerText = shortTermArtists.items[index].name;
+            let genres = "";
+            shortTermArtists.items[index].genres.forEach(function(genre) {
+              genres += genre + "<br/>";
+            });
+            bigGenre.innerHTML = genres;
+          }
+          else if (currentArtistTimeRange === MEDIUM_TERM) {
+            // initAudio(document.getElementById(mediumTermArtists.items[Number(index)].uri))
+            bigCover.src = mediumTermArtists.items[index].images[0].url;
+            bigRank.innerText = rank;
+            bigName.innerText = mediumTermArtists.items[index].name;
+            let genres = "";
+            mediumTermArtists.items[index].genres.forEach(function(genre) {
+              genres += genre + "<br/>";
+            });
+            bigGenre.innerHTML = genres;
+          }
+          else {
+            // initAudio(document.getElementById(longTermArtists.items[Number(index)].uri))
+            bigCover.src = longTermArtists.items[index].images[0].url;
+            bigRank.innerText = rank;
+            bigName.innerText = longTermArtists.items[index].name;
+            let genres = "";
+            longTermArtists.items[index].genres.forEach(function(genre) {
+              genres += genre + "<br/>";
+            });
+            bigGenre.innerHTML = genres;
+          }
+
+          bigCover.classList.remove("hidden");
+          bigRank.classList.remove("hidden");
+          bigName.classList.remove("hidden");
+          bigGenre.classList.remove("hidden");
+        }, 200)
+
+        card.parentElement.parentElement.classList.add("d-none");
+
+        let showCard = document.getElementById("artist" + currentArtistIndex).parentElement.parentElement;
+        showCard.classList.remove("d-none");
+
+        currentArtistIndex = index;
+      }
+
+      function changeArtistTime(mode) {
+        if (mode !== SHORT_TERM && mode !== MEDIUM_TERM && mode !== LONG_TERM) {
+          return;
+        }
+        else if (mode === currentArtistTimeRange) {
+          return;
+        }
+        else {
+          let btns = document.querySelectorAll(".artist-time-range");
+
+          btns.forEach(function(btn, i) {
+            btn.disabled = true;
+            setTimeout(function() {
+              btn.disabled = false;
+            }, 2000);
+
+            if (mode === i + 1) {
+              btn.classList.add("active");
+            } else {
+              btn.classList.remove("active");
+            }
+          });
+
+          currentArtistIndex = 0;
+          let cards = document.querySelectorAll(".artist-card");
+          let smallCovers = document.querySelectorAll(".small-artist-cover");
+          let smallRanks = document.querySelectorAll(".small-artist-rank");
+          let smallNames = document.querySelectorAll(".artist-name-small");
+          let smallGenres = document.querySelectorAll(".artist-genre-small");
+
+          let bigCover = document.querySelector(".big-artist-cover");
+          let bigRank = document.querySelector(".artist-rank");
+          let bigName = document.querySelector(".artist-name");
+          let bigGenre = document.querySelector(".artist-genre");
+
+          if (mode === SHORT_TERM) {
+            // initAudio(document.getElementById(shortTermArtists.items[0].uri))
+
+            bigCover.classList.add("hidden");
+            setTimeout(function() {
+              bigCover.src = shortTermArtists.items[0].images[0].url;
+              bigCover.classList.remove("hidden");
+              bigRank.classList.add("hidden");
+              bigName.classList.add("hidden");
+              setTimeout(function() {
+                bigRank.innerText = 1;
+                bigName.innerText = shortTermArtists.items[0].name;
+                bigRank.classList.remove("hidden");
+                bigName.classList.remove("hidden");
+                bigGenre.classList.add("hidden");
+                setTimeout(function() {
+                  let genres = "";
+                  shortTermArtists.items[0].genres.forEach(function(genre) {
+                    genres += genre + "<br/>";
+                  });
+                  bigGenre.innerHTML = genres;
+                  bigGenre.classList.remove("hidden");
+                }, 100)
+              }, 100)
+            }, 100)
+
+
+            cards.forEach(function(card, i) {
+              if (shortTermArtists.items[i]) {
+                card.parentElement.parentElement.classList.remove("d-none");
+                if (i === 0) {
+                  card.parentElement.parentElement.classList.add("d-none");
+                }
+                card.id = "artist" + i;
+                setTimeout(function() {
+                  card.classList.add("hidden");
+                  setTimeout(function() {
+                    smallCovers[i].src = shortTermArtists.items[i].images[0].url;
+                    smallRanks[i].innerText = i + 1;
+                    smallNames[i].innerText = shortTermArtists.items[i].name;
+                    smallGenres[i].innerText = shortTermArtists.items[i].genres[0];
+                    card.classList.remove("hidden");
+                  }, 300)
+                }, (i * 50));
+              } else {
+                card.classList.add("hidden");
+                setTimeout(function() {
+                  card.classList.add("d-none");
+                }, 350);
+              }
+            });
+
+            currentArtistTimeRange = SHORT_TERM;
+          }
+          else if (mode === MEDIUM_TERM) {
+            // initAudio(document.getElementById(mediumTermArtists.items[0].uri))
+
+            bigCover.classList.add("hidden");
+            setTimeout(function() {
+              bigCover.src = mediumTermArtists.items[0].images[0].url;
+              bigCover.classList.remove("hidden");
+              bigRank.classList.add("hidden");
+              bigName.classList.add("hidden");
+              setTimeout(function() {
+                bigRank.innerText = 1;
+                bigName.innerText = mediumTermArtists.items[0].name;
+                bigRank.classList.remove("hidden");
+                bigName.classList.remove("hidden");
+                bigGenre.classList.add("hidden");
+                setTimeout(function() {
+                  let genres = "";
+                  mediumTermArtists.items[0].genres.forEach(function(genre) {
+                    genres += genre + "<br/>";
+                  });
+                  bigGenre.innerHTML = genres;
+                  bigGenre.classList.remove("hidden");
+                }, 100)
+              }, 100)
+            }, 100)
+
+            cards.forEach(function(card, i) {
+              if (mediumTermArtists.items[i]) {
+                card.parentElement.parentElement.classList.remove("d-none");
+                if (i === 0) {
+                  card.parentElement.parentElement.classList.add("d-none");
+                }
+                card.id = "artist" + i;
+                setTimeout(function() {
+                  card.classList.add("hidden");
+                  setTimeout(function() {
+                    smallCovers[i].src = mediumTermArtists.items[i].images[0].url;
+                    smallRanks[i].innerText = i + 1;
+                    smallNames[i].innerText = mediumTermArtists.items[i].name;
+                    smallGenres[i].innerText = mediumTermArtists.items[i].genres[0];
+                    card.classList.remove("hidden");
+                  }, 300)
+                }, (i * 50));
+              } else {
+                card.classList.add("hidden");
+                setTimeout(function() {
+                  card.classList.add("d-none");
+                }, 350);
+              }
+            });
+
+            currentArtistTimeRange = MEDIUM_TERM;
+          }
+          else if (mode === LONG_TERM) {
+            // initAudio(document.getElementById(longTermArtists.items[0].uri))
+
+            bigCover.classList.add("hidden");
+            setTimeout(function() {
+              bigCover.src = longTermArtists.items[0].images[0].url;
+              bigCover.classList.remove("hidden");
+              bigRank.classList.add("hidden");
+              bigName.classList.add("hidden");
+              setTimeout(function() {
+                bigRank.innerText = 1;
+                bigName.innerText = longTermArtists.items[0].name;
+                bigRank.classList.remove("hidden");
+                bigName.classList.remove("hidden");
+                bigGenre.classList.add("hidden");
+                setTimeout(function() {
+                  let genres = "";
+                  longTermArtists.items[0].genres.forEach(function(genre) {
+                    genres += genre + "<br/>";
+                  });
+                  bigGenre.innerHTML = genres;
+                  bigGenre.classList.remove("hidden");
+                }, 100)
+              }, 100)
+            }, 100)
+
+            cards.forEach(function(card, i) {
+              if (longTermArtists.items[i]) {
+                card.parentElement.parentElement.classList.remove("d-none");
+                if (i === 0) {
+                  card.parentElement.parentElement.classList.add("d-none");
+                }
+                card.id = "artist" + i;
+                setTimeout(function() {
+                  card.classList.add("hidden");
+                  setTimeout(function() {
+                    smallCovers[i].src = longTermArtists.items[i].images[0].url;
+                    smallRanks[i].innerText = i + 1;
+                    smallNames[i].innerText = longTermArtists.items[i].name;
+                    smallGenres[i].innerText = longTermArtists.items[i].genres[0];
+                    card.classList.remove("hidden");
+                  }, 300)
+                }, (i * 50));
+              } else {
+                card.classList.add("hidden");
+                setTimeout(function() {
+                  card.classList.add("d-none");
+                }, 350);
+              }
+            });
+
+            currentArtistTimeRange = LONG_TERM;
           }
         }
       }
