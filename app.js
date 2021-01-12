@@ -35,8 +35,8 @@ app.use("/modules/animate", express.static(__dirname + "/node_modules/animate.cs
 app.use("/modules/animejs", express.static(__dirname + "/node_modules/animejs/lib/"));
 app.use("/modules/jquery", express.static(__dirname + "/node_modules/jquery/dist/"));
 
-const client_id = ENV["CLIENT_ID"] || process.env.CLIENT_ID; // Client id
-const client_secret = ENV["CLIENT_SECRET"] || process.env.CLIENT_SECRET; // Secret key
+const client_id = process.env.CLIENT_ID; // Client id
+const client_secret = process.env.CLIENT_SECRET; // Secret key
 const redirect_uri = "http://localhost:3000/stats"; // Redirect uri
 
 /**
