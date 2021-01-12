@@ -146,7 +146,6 @@ app.get("/stats", function(req, res) {
                 request.get(shortTermArtists, function(error, response, shortTermArtists) {
                   request.get(mediumTermArtists, function(error, response, mediumTermArtists) {
                     request.get(longTermArtists, function(error, response, longTermArtists) {
-                      console.log(shortTermSongs);
                       res.render("stats", {profile, shortTermSongs, mediumTermSongs, longTermSongs,
                                            shortTermArtists, mediumTermArtists, longTermArtists});
                     });

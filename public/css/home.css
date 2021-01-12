@@ -513,7 +513,7 @@ a {
 #album-12 {
   top: 80vh;
   left: 84vw;
-  z-index: 2;
+  z-index: 22;
 }
 
 #album-13 {
@@ -875,24 +875,6 @@ a {
   transition: width 0.4s ease, height 0.5s ease, min-width 0.4s ease, height 0.5s ease, border-radius 0.5s ease, padding 0.5s ease, background 0.3s ease, color 0.3s ease;
 }
 
-.login-btn-clicked {
-  display: block;
-  -webkit-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-  white-space: nowrap;
-  width: 5vw;
-  height: 5vw;
-  min-width: 50px;
-  min-height: 50px;
-  padding: 0;
-  color: transparent;
-  background: #141414;
-  z-index: -10;
-  pointer-events: none;
-  border-radius: 50%;
-}
-
 .bg-expand {
   position: absolute;
   background: #141414;
@@ -919,7 +901,6 @@ a {
 .album-center {
   top: 50% !important;
   margin-top: calc((18px + 7vw + 5vh) / -2);
-  pointer-events: none;
 }
 
 .album-center-left {

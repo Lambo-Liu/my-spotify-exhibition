@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Spotify Stats</title>
     <link rel="stylesheet" href="/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="/css/bootstrap-modal.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/stats.css">
     <link rel="stylesheet" href="/modules/animate/animate.min.css">
+    <link rel="stylesheet" href="/modules/fontawesome/css/all.min.css">
     <script src="/modules/animejs/anime.min.js"></script>
     <script src="/modules/jquery/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </head>
   <body>
     <section class="main bg-light shadow-top">
@@ -65,8 +69,15 @@
       <div class="album album-after" id="album-17">
         <img class="album-inner shadow" src="/img/album-17.jpg" alt="Album cover">
       </div>
-      <div class="album album-after" id="album-18">
-        <img class="face album-inner shadow" src="/img/album-18.jpg" alt="Album cover">
+      <div class="flip-card album album-after" id="album-18">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img class="album-inner shadow" src="/img/album-18.jpg" alt="Album cover">
+          </div>
+          <div class="flip-card-back">
+            <img class="album-flip-inner" src=<%= shortTermSongs.items[0].album.images[0].url %> alt="Album cover">
+          </div>
+        </div>
       </div>
 
       <div class="start-text w-100 h-100 d-flex flex-column align-items-center justify-content-center">
@@ -75,11 +86,95 @@
             <h1 class="welcome">Welcome</h1>
             <small class="welcome-subtitle">to your own Spotify replay exhibition.</small>
           </div>
-          <button class="login-btn login-btn-clicked" type="button" name="login">Log in with Spotify</button>
+          <button class="login-btn" type="button" name="login">Log in with Spotify</button>
         </div>
       </div>
       <span class="bg-expand"></span>
     </section>
+
+    <section class="main-after bg-dark text-white text-left shadow-top">
+      <div class="main-after d-flex flex-row">
+        <div class="col-lg-4 d-flex flex-column left-wrapper main-after">
+          <img class="big-cover shadow" src=<%= shortTermSongs.items[0].album.images[0].url %> alt="Song cover">
+          <div class="text-left">
+            <div class="song-description-wrapper d-flex flex-row">
+              <div class="rank d-flex align-items-center justify-content-center">1</div>
+              <div class="d-flex align-items-center song-title line-cut-3"><%=shortTermSongs.items[0].name%></div>
+            </div>
+            <p class="song-artist">by <span class="bold"><%=shortTermSongs.items[0].artists[0].name%></span></p>
+          </div>
+        </div>
+        <div class="col-lg-8 right-wrapper main-after">
+          <div class="d-flex flex-column">
+            <div style="margin-bottom: 20px; margin-left: 0.5rem;">Top Tracks</div>
+            <div class="d-flex flex-row">
+              <button class="btn-no-style time-range underline active" onclick="changeTrackTime(1)"><small>4 Weeks</small></button>
+              <button class="btn-no-style time-range underline" onclick="changeTrackTime(2)"><small>6 Months</small></button>
+              <button class="btn-no-style time-range underline" onclick="changeTrackTime(3)"><small>All Time</small></button>
+            </div>
+          </div>
+          <div class="d-flex flex-row flex-wrap">
+            <% shortTermSongs.items.forEach(function(song, i) { %>
+              <% if (i !== 0) { %>
+                <div class="col-xxl-4 col-lg-6">
+                  <div class="card-wrapper">
+                    <div class="card track-card shadow d-flex flex-row" id=<%=i%>>
+                      <img class="small-cover" src=<%=song.album.images[0].url%> alt="Song cover">
+                      <div class="rank-small d-flex align-items-center justify-content-center"><%=i+1%></div>
+                      <div class="d-flex flex-column justify-content-center song-description-wrapper-small">
+                        <small class="line-cut-1 song-title-small"><%=song.name%></small>
+                        <small class="line-cut-1 song-artist-small"><%=song.artists[0].name%></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% } else { %>
+                <div class="d-none col-xxl-4 col-lg-6">
+                  <div class="card-wrapper">
+                    <div class="card track-card shadow d-flex flex-row" id=<%=i%>>
+                      <img class="small-cover" src=<%=song.album.images[0].url%> alt="Song cover">
+                      <div class="rank-small d-flex align-items-center justify-content-center"><%=i+1%></div>
+                      <div class="d-flex flex-column justify-content-center song-description-wrapper-small">
+                        <small class="line-cut-1 song-title-small"><%=song.name%></small>
+                        <small class="line-cut-1 song-artist-small"><%=song.artists[0].name%></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="nav-wrapper d-none hidden">
+      <div class="nav shadow d-flex flex-row justify-content-center align-items-center">
+        <a class="d-flex flex-column justify-content-center align-items-center nav-item">
+          <i class="fa fa-sm fa-music" style="margin-bottom: 5px;"></i>
+          <div style="font-size: 11px; font-weight: 300;">Top Tracks</div>
+        </a>
+        <a class="d-flex flex-column justify-content-center align-items-center nav-item">
+          <i class="fa fa-sm fa-microphone-alt" style="margin-bottom: 5px;"></i>
+          <div style="font-size: 11px; font-weight: 300;">Top Artists</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button id="modal-btn" type="button" class="d-none" data-toggle="modal" data-target="#modal"></button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content d-flex justify-content-center align-items-center">
+          <div>Hello there! <br/></div>
+          <small class="modal-msg">Just a reminder that this website plays a lot of music... Feel free to turn it up! (or continue without)</small>
+          <button id="sound-on-btn" type="button" class="continue-btn" data-dismiss="modal">Jump In!</button>
+          <button id="sound-off-btn" type="button" data-dismiss="modal">Continue without sounds</button>
+        </div>
+      </div>
+    </div>
 
     <section class="d-none">
       <% shortTermSongs.items.forEach(function(song) { %>
@@ -90,6 +185,17 @@
     </section>
 
     <script>
+    const SHORT_TERM = 1;
+    const MEDIUM_TERM = 2;
+    const LONG_TERM = 3;
+
+    const shortTermSongs = <%-JSON.stringify(shortTermSongs)%>
+    const mediumTermSongs = <%-JSON.stringify(mediumTermSongs)%>
+    const longTermSongs = <%-JSON.stringify(longTermSongs)%>
+
+    var currentIndex = 0;
+    var currentTrackTimeRange = 1;
+
       function initAlbums() {
         let main = document.querySelector(".main");
         let albums = document.querySelectorAll(".album");
@@ -111,31 +217,40 @@
         let albums = document.querySelectorAll(".album-inner");
         let welcomeMsg = document.querySelector(".welcome-msg");
 
-        btn.innerHTML = "";
         backgroundExpand.classList.add("bg-expanded");
         setTimeout(function() {
           let main = document.querySelector(".main");
           main.style.background = "#141414";
+          const directions = ["left", "right", "right", "right", "right", "left", "right", "right", "right",
+                            "left", "right", "left", "right", "left", "left", "right", "left", "left"];
+
           for (var i = 0; i < albums.length; i++) {
-            albums[i].classList.remove("shadow");
-            $(albums[i]).off();
-            albums[i].parentElement.classList.remove("animate__infinite");
-            albums[i].parentElement.classList.add("album-center");
+            if (i === albums.length - 1) {
+              albums[i].classList.remove("shadow");
+              albums[i].parentElement.parentElement.parentElement.classList.add("album-center");
+              albums[i].parentElement.parentElement.parentElement.style.transition = "all 0.4s ease " + (0.15 * i) + "s";
 
-            albums[i].parentElement.style.transition = "all 0.4s ease " + (0.15 * i) + "s";
-
-            var directions = ["left", "right", "right", "right", "right", "left", "right", "right", "right",
-                              "left", "right", "left", "right", "left", "left", "right", "left", "left"];
-
-            if (directions[i] === "left") {
-              albums[i].parentElement.classList.add("album-center-left");
+              if (directions[i] === "left") {
+                albums[i].parentElement.parentElement.parentElement.classList.add("album-center-left");
+              } else {
+                albums[i].parentElement.parentElement.parentElement.classList.add("album-center-right");
+              }
             } else {
-              albums[i].parentElement.classList.add("album-center-right");
+              albums[i].classList.remove("shadow");
+              albums[i].parentElement.classList.add("album-center");
+              albums[i].parentElement.style.transition = "all 0.4s ease " + (0.15 * i) + "s";
+
+              if (directions[i] === "left") {
+                albums[i].parentElement.classList.add("album-center-left");
+              } else {
+                albums[i].parentElement.classList.add("album-center-right");
+              }
             }
           }
           setTimeout(function() {
             welcomeMsg.remove();
             btn.remove();
+            backgroundExpand.remove();
 
             for (var i = 0; i < albums.length; i++) {
               if (i === albums.length - 1) {
@@ -145,20 +260,263 @@
               }
             }
 
-            let firstSongAudio = document.getElementById("<%= shortTermSongs.items[0].uri %>");
-            let audioDuration = ((firstSongAudio.duration - 2) * 1000);
-            firstSongAudio.volume = 0;
-            firstSongAudio.play();
-            $(firstSongAudio).animate({volume: 1}, 1500);
+            let flip = document.querySelector(".flip-card-inner");
+            let main = document.querySelector(".main");
+            flip.classList.add("flip-card-inner-after");
+            flip.parentElement.style.transition = "all 0.4s ease";
+            flip.parentElement.classList.add("flip-card-after");
+            main.classList.add("main-after");
             setTimeout(function() {
-              $(firstSongAudio).animate({volume: 0}, 1500);
-            }, audioDuration);
+              flip.parentElement.classList.remove("album-after");
+              flip.parentElement.classList.remove("album");
+              flip.parentElement.removeAttribute("id");
+            }, 1000);
+            initAudio();
+
+            let nav = document.querySelector(".nav-wrapper");
+            nav.classList.remove("d-none");
+            nav.classList.remove("hidden");
           }, 3000)
         }, 700)
       }
 
-      initAlbums();
-      setTimeout(initAnimation, 500);
+      function initAudio() {
+        let firstSongAudio = document.getElementById("<%= shortTermSongs.items[0].uri %>");
+        let audioDuration = ((firstSongAudio.duration - 2) * 1000);
+        firstSongAudio.volume = 0;
+        firstSongAudio.play();
+        $(firstSongAudio).animate({volume: 1}, 1500);
+        setTimeout(function() {
+          $(firstSongAudio).animate({volume: 0}, 1500);
+        }, audioDuration);
+      }
+
+      function mute(e) {
+        e.muted = true;
+        e.pause();
+      }
+
+      function init() {
+        let modal = document.getElementById("modal");
+        let modalBtn = document.getElementById("modal-btn");
+        let soundOffBtn = document.getElementById("sound-off-btn");
+
+        modalBtn.click();
+
+        soundOffBtn.addEventListener("click", function() {
+          let media = document.querySelectorAll("video, audio");
+          [].forEach.call(media, function(e) {
+            mute(e);
+          });
+        });
+
+        $(modal).on("hidden.bs.modal", function () {
+          initAlbums();
+          setTimeout(initAnimation, 500);
+        });
+      }
+
+      function initNavBar() {
+        let navbar = document.querySelector(".nav");
+
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = function() {
+          var currentScrollPos = window.pageYOffset;
+          if (prevScrollpos > currentScrollPos) {
+            navbar.style.bottom = "-80px";
+          } else {
+            navbar.style.bottom = "0";
+          }
+          prevScrollpos = currentScrollPos;
+        }
+      }
+
+      function clickTrackCard() {
+        let cards = document.querySelectorAll(".track-card");
+
+        cards.forEach(function(card) {
+          card.addEventListener("click", function() {
+            let bigCover = document.querySelector(".big-cover");
+            let bigRank = document.querySelector(".rank");
+            let bigTitle = document.querySelector(".song-title");
+            let bigArtist = document.querySelector(".song-artist");
+            let index = card.id;
+            let rank = Number(index) + 1;
+
+            if (currentTrackTimeRange === SHORT_TERM) {
+              bigCover.src = shortTermSongs.items[index].album.images[0].url;
+              bigRank.innerText = rank;
+              bigTitle.innerText = shortTermSongs.items[index].name;
+              bigArtist.innerText = "by " + shortTermSongs.items[index].artists[0].name;
+            }
+            else if (currentTrackTimeRange === MEDIUM_TERM) {
+              bigCover.src = mediumTermSongs.items[index].album.images[0].url;
+              bigRank.innerText = rank;
+              bigTitle.innerText = mediumTermSongs.items[index].name;
+              bigArtist.innerText = "by " + mediumTermSongs.items[index].artists[0].name;
+            }
+            else {
+              bigCover.src = longTermSongs.items[index].album.images[0].url;
+              bigRank.innerText = rank;
+              bigTitle.innerText = longTermSongs.items[index].name;
+              bigArtist.innerText = "by " + longTermSongs.items[index].artists[0].name;
+            }
+
+            card.parentElement.parentElement.classList.add("d-none");
+
+            let showCard = document.getElementById(currentIndex).parentElement.parentElement;
+            showCard.classList.remove("d-none");
+
+            currentIndex = index;
+          });
+        });
+      }
+
+      function changeTrackTime(mode) {
+        if (mode !== SHORT_TERM && mode !== MEDIUM_TERM && mode !== LONG_TERM) {
+          return;
+        }
+        else if (mode === currentTrackTimeRange) {
+          return;
+        }
+        else {
+          let btns = document.querySelectorAll(".time-range");
+
+          btns.forEach(function(btn, i) {
+            if (mode === i + 1) {
+              btn.classList.add("active");
+            } else {
+              btn.classList.remove("active");
+            }
+          });
+
+          currentIndex = 0;
+          let cards = document.querySelectorAll(".track-card");
+          let smallCovers = document.querySelectorAll(".small-cover");
+          let smallRanks = document.querySelectorAll(".rank-small");
+          let smallTitles = document.querySelectorAll(".song-title-small");
+          let smallArtists = document.querySelectorAll(".song-artist-small");
+
+          let bigCover = document.querySelector(".big-cover");
+          let bigRank = document.querySelector(".rank");
+          let bigTitle = document.querySelector(".song-title");
+          let bigArtist = document.querySelector(".song-artist");
+
+          if (mode === SHORT_TERM) {
+            bigCover.classList.add("hidden");
+            setTimeout(function() {
+              bigCover.src = shortTermSongs.items[0].album.images[0].url;
+              bigCover.classList.remove("hidden");
+              bigRank.classList.add("hidden");
+              bigTitle.classList.add("hidden");
+              setTimeout(function() {
+                bigRank.innerText = 1;
+                bigTitle.innerText = shortTermSongs.items[0].name;
+                bigRank.classList.remove("hidden");
+                bigTitle.classList.remove("hidden");
+                bigArtist.classList.add("hidden");
+                setTimeout(function() {
+                  bigArtist.innerText = "by " + shortTermSongs.items[0].artists[0].name;
+                  bigArtist.classList.remove("hidden");
+                }, 100)
+              }, 100)
+            }, 100)
+
+
+            cards.forEach(function(card, i) {
+              card.id = i;
+              setTimeout(function() {
+                card.classList.add("hidden");
+                setTimeout(function() {
+                  smallCovers[i].src = shortTermSongs.items[i].album.images[0].url;
+                  smallRanks[i].innerText = i + 1;
+                  smallTitles[i].innerText = shortTermSongs.items[i].name;
+                  smallArtists[i].innerText = shortTermSongs.items[i].artists[0].name;
+                  card.classList.remove("hidden");
+                }, 300)
+              }, (i * 50));
+            });
+
+            currentTrackTimeRange = SHORT_TERM;
+          }
+          else if (mode === MEDIUM_TERM) {
+            bigCover.classList.add("hidden");
+            setTimeout(function() {
+              bigCover.src = mediumTermSongs.items[0].album.images[0].url;
+              bigCover.classList.remove("hidden");
+              bigRank.classList.add("hidden");
+              bigTitle.classList.add("hidden");
+              setTimeout(function() {
+                bigRank.innerText = 1;
+                bigTitle.innerText = mediumTermSongs.items[0].name;
+                bigRank.classList.remove("hidden");
+                bigTitle.classList.remove("hidden");
+                bigArtist.classList.add("hidden");
+                setTimeout(function() {
+                  bigArtist.innerText = "by " + mediumTermSongs.items[0].artists[0].name;
+                  bigArtist.classList.remove("hidden");
+                }, 100)
+              }, 100)
+            }, 100)
+
+            cards.forEach(function(card, i) {
+              card.id = i;
+              setTimeout(function() {
+                card.classList.add("hidden");
+                setTimeout(function() {
+                  smallCovers[i].src = mediumTermSongs.items[i].album.images[0].url;
+                  smallRanks[i].innerText = i + 1;
+                  smallTitles[i].innerText = mediumTermSongs.items[i].name;
+                  smallArtists[i].innerText = mediumTermSongs.items[i].artists[0].name;
+                  card.classList.remove("hidden");
+                }, 300)
+              }, (i * 50));
+            });
+
+            currentTrackTimeRange = MEDIUM_TERM;
+          }
+          else if (mode === LONG_TERM) {
+            bigCover.classList.add("hidden");
+            setTimeout(function() {
+              bigCover.src = longTermSongs.items[0].album.images[0].url;
+              bigCover.classList.remove("hidden");
+              bigRank.classList.add("hidden");
+              bigTitle.classList.add("hidden");
+              setTimeout(function() {
+                bigRank.innerText = 1;
+                bigTitle.innerText = longTermSongs.items[0].name;
+                bigRank.classList.remove("hidden");
+                bigTitle.classList.remove("hidden");
+                bigArtist.classList.add("hidden");
+                setTimeout(function() {
+                  bigArtist.innerText = "by " + longTermSongs.items[0].artists[0].name;
+                  bigArtist.classList.remove("hidden");
+                }, 100)
+              }, 100)
+            }, 100)
+
+            cards.forEach(function(card, i) {
+              card.id = i;
+              setTimeout(function() {
+                card.classList.add("hidden");
+                setTimeout(function() {
+                  smallCovers[i].src = longTermSongs.items[i].album.images[0].url;
+                  smallRanks[i].innerText = i + 1;
+                  smallTitles[i].innerText = longTermSongs.items[i].name;
+                  smallArtists[i].innerText = longTermSongs.items[i].artists[0].name;
+                  card.classList.remove("hidden");
+                }, 300)
+              }, (i * 50));
+            });
+
+            currentTrackTimeRange = LONG_TERM;
+          }
+        }
+      }
+
+      // init();
+      initNavBar();
+      clickTrackCard();
 
     </script>
   </body>
