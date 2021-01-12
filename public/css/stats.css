@@ -1,11 +1,11 @@
 html {
-  -ms-scroll-snap-type: y proximity;
-      scroll-snap-type: y proximity;
+  -ms-scroll-snap-type: none;
+      scroll-snap-type: none;
 }
 
 body {
-  -ms-scroll-snap-type: y proximity;
-      scroll-snap-type: y proximity;
+  -ms-scroll-snap-type: none;
+      scroll-snap-type: none;
 }
 
 .btn-no-style {
