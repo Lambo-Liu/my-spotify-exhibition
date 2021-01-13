@@ -252,7 +252,7 @@
                     <div class="card-wrapper">
                       <button class="btn-no-style w-100 card artist-card shadow d-flex flex-row" onclick="clickArtistCard(this);" id=artist<%=i%>>
                         <div class="small-artist-cover-wrapper">
-                          <% if (shortTermArtists.items[i].images[0].url) { %>
+                          <% if (shortTermArtists.items[i].images[0]) { %>
                             <img class="small-artist-cover" src=<%=shortTermArtists.items[i].images[0].url%> alt="Artist image">
                           <% } else { %>
                             <img class="small-artist-cover" src="img/empty.jpg" style="background: #181818;" alt="No artist image available">
@@ -270,7 +270,7 @@
                   <div class="d-none col-xxl-4 col-lg-6 col-12">
                     <div class="card-wrapper">
                       <button class="btn-no-style w-100 card artist-card shadow d-flex flex-row" onclick="clickArtistCard(this);" id=artist<%=i%>>
-                        <% if (shortTermArtists.items[i].images[0].url) { %>
+                        <% if (shortTermArtists.items[i].images[0]) { %>
                           <img class="small-artist-cover" src=<%=shortTermArtists.items[i].images[0].url%> alt="Artist image">
                         <% } else { %>
                           <img class="small-artist-cover" src="img/empty.jpg" style="background: #181818;" alt="No artist image available">
