@@ -189,12 +189,12 @@
         <% if (shortTermArtists.total < 1) { %>
           <div class="col-lg-4 col-12 d-flex flex-column left-wrapper">
             <div class="big-artist-cover-wrapper shadow">
-              <img class="big-artist-cover" src=<%= shortTermArtists.items[0].images[0].url %> alt="Artist image">
+              <img class="big-artist-cover" src="/img/empty.jpg" alt="No artist image available">
             </div>
             <div class="text-left">
               <div class="artist-description-wrapper d-flex flex-row">
                 <div class="artist-rank d-flex align-items-center justify-content-center">1</div>
-                <div class="d-flex align-items-center artist-name line-cut-3"><%=shortTermArtists.items[0].name%></div>
+                <div class="d-flex align-items-center artist-name line-cut-3">No Artist Found</div>
               </div>
               <p class="artist-genre">
                 Listen more to unlock more artists!
@@ -204,12 +204,12 @@
         <% } else { %>
           <div class="col-lg-4 col-12 d-flex flex-column left-wrapper">
             <div class="big-artist-cover-wrapper shadow">
-              <img class="big-artist-cover" src="/img/empty.jpg" alt="No artist image available">
+              <img class="big-artist-cover" src=<%= shortTermArtists.items[0].images[0].url %> alt="Artist image">
             </div>
             <div class="text-left">
               <div class="artist-description-wrapper d-flex flex-row">
                 <div class="artist-rank d-flex align-items-center justify-content-center">1</div>
-                <div class="d-flex align-items-center artist-name line-cut-3">No Artist Found</div>
+                <div class="d-flex align-items-center artist-name line-cut-3"><%=shortTermArtists.items[0].name%></div>
               </div>
               <p class="artist-genre">
                 <% shortTermArtists.items[0].genres.forEach(function(genre) { %>
