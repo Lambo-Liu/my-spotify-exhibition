@@ -283,7 +283,7 @@ body {
   bottom: 0;
   left: 20px;
   height: 80px;
-  width: 180px;
+  width: 260px;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   border-top: 2px solid #282828;
@@ -296,6 +296,7 @@ body {
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
+  width: 60px;
   color: #E3E3E3 !important;
   transition: color 0.3s ease;
 }

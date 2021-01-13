@@ -227,9 +227,9 @@
               <button class="btn-no-style artist-time-range underline" onclick="changeArtistTime(2)"><small>6 Months</small></button>
               <button class="btn-no-style artist-time-range underline" onclick="changeArtistTime(3)"><small>All Time</small></button>
             </div>
-            <div style="font-size: 0.4rem; font-style: italic; font-weight: 300; margin-left: 0.5rem; color: #B3B3B3; margin-bottom: 0.5rem;">
+            <!-- <div style="font-size: 0.4rem; font-style: italic; font-weight: 300; margin-left: 0.5rem; color: #B3B3B3; margin-bottom: 0.5rem;">
               Click on an artist to play their top song!
-            </div>
+            </div> -->
           </div>
           <div class="d-flex flex-row flex-wrap">
             <% for (let i = 0; i < 50; i++) { %>
@@ -293,6 +293,10 @@
           <i class="fa fa-microphone-alt" style="margin-bottom: 5px; font-size: 24px;"></i>
           <div style="font-size: 11px; font-weight: 300;">Top Artists</div>
         </a>
+        <a id="mute-btn" onclick="toggleAllAudio(this);" class="d-flex flex-column justify-content-center align-items-center nav-item" data-muted="false">
+          <i id="mute-icon" class="fa fa-volume-up" style="margin-bottom: 5px; font-size: 24px;"></i>
+          <div id="mute-text" style="font-size: 11px; font-weight: 300;">Mute Site</div>
+        </a>
       </div>
     </div>
 
@@ -327,6 +331,21 @@
           <source src=<%=song.preview_url%> type="audio/mpeg">
         </audio>
       <% }); %>
+      <!-- <% shortTermArtists.items.forEach(function(artist) { %>
+        <audio id=<%=artist.uri%>>
+          <source src=<%=artist.preview_url%> type="audio/mpeg">
+        </audio>
+      <% }); %>
+      <% mediumTermArtists.items.forEach(function(artist) { %>
+        <audio id=<%=artist.uri%>>
+          <source src=<%=artist.preview_url%> type="audio/mpeg">
+        </audio>
+      <% }); %>
+      <% longTermArtists.items.forEach(function(artist) { %>
+        <audio id=<%=artist.uri%>>
+          <source src=<%=artist.preview_url%> type="audio/mpeg">
+        </audio>
+      <% }); %> -->
     </section>
 
     <script>
@@ -470,6 +489,35 @@
         e.pause();
       }
 
+      function unmute(e) {
+        e.muted = false;
+      }
+
+      function toggleAllAudio(muteBtn) {
+        let muteIcon = document.getElementById("mute-icon");
+        let muteText = document.getElementById("mute-text");
+        let media = document.querySelectorAll("video, audio");
+
+        if (muteBtn.dataset.muted === "true") {
+          muteBtn.dataset.muted = false;
+          [].forEach.call(media, function(e) {
+            unmute(e);
+          });
+          initAudio(currentSongAudio);
+          muteIcon.classList.remove("fa-volume-mute");
+          muteIcon.classList.add("fa-volume-up");
+          muteText.innerText = "Mute Site";
+        } else {
+          muteBtn.dataset.muted = true;
+          [].forEach.call(media, function(e) {
+            mute(e);
+          });
+          muteIcon.classList.remove("fa-volume-up");
+          muteIcon.classList.add("fa-volume-mute");
+          muteText.innerText = "Unmute";
+        }
+      }
+
       function init() {
         let modal = document.getElementById("modal");
         let modalBtn = document.getElementById("modal-btn");
@@ -478,10 +526,8 @@
         modalBtn.click();
 
         soundOffBtn.addEventListener("click", function() {
-          let media = document.querySelectorAll("video, audio");
-          [].forEach.call(media, function(e) {
-            mute(e);
-          });
+          let muteBtn = document.getElementById("mute-btn");
+          muteBtn.click();
         });
 
         $(modal).on("hidden.bs.modal", function () {

@@ -2,7 +2,6 @@
 //  TO-DO LIST:
 //   o Get statistics like danceability, accousticness, etc. into songs
 //   o Play artist songs
-//   o Figure out solution for 0 songs/artists listened to
 //   o Mute button / volume control
 //
 
@@ -64,6 +63,30 @@ const generateRandomString = function(length) {
 };
 
 const stateKey = "spotify_auth_state";
+
+function getArtistTopTracks(artist, access_token, callback) {
+  const artistTopSongRequest = {
+    url: "https://api.spotify.com/v1/artists/" + artist.id + "/top-tracks?market=US",
+    headers: { "Authorization": "Bearer " + access_token},
+    json: true
+  };
+
+  request.get(artistTopSongRequest, function(error, response, topSongs) {
+    callback(topSongs);
+  });
+}
+
+function addArtistsTopSong(artists, access_token, i, callback) {
+  getArtistTopTracks(artists.items[i], access_token, function(topSongs) {
+    if (i + 1 === artists.items.length) {
+      callback(artists);
+    } else {
+      artists.items[i].preview_url = topSongs.tracks[0].preview_url;
+      i++;
+      addArtistsTopSong(artists, access_token, i, callback);
+    }
+  });
+}
 
 app.get("/login", function(req, res) {
   const state = generateRandomString(16);
@@ -127,13 +150,13 @@ app.get("/stats", function(req, res) {
           url: "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50",
           headers: { "Authorization": "Bearer " + body.access_token},
           json: true
-        }
+        };
 
         const shortTermArtists = {
           url: "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=50",
           headers: { "Authorization": "Bearer " + body.access_token},
           json: true
-        }
+        };
 
         const mediumTermArtists = {
           url: "https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50",
@@ -145,7 +168,7 @@ app.get("/stats", function(req, res) {
           url: "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50",
           headers: { "Authorization": "Bearer " + body.access_token},
           json: true
-        }
+        };
 
         request.get(profile, function(error, response, profile) {
           request.get(shortTermSongs, function(error, response, shortTermSongs) {
@@ -154,10 +177,25 @@ app.get("/stats", function(req, res) {
                 request.get(shortTermArtists, function(error, response, shortTermArtists) {
                   request.get(mediumTermArtists, function(error, response, mediumTermArtists) {
                     request.get(longTermArtists, function(error, response, longTermArtists) {
-                      shortTermSongs.total = 0;
-                      shortTermArtists.total = 0;
-                      res.render("stats", {profile, shortTermSongs, mediumTermSongs, longTermSongs,
-                                           shortTermArtists, mediumTermArtists, longTermArtists});
+                      // if (shortTermArtists.total >= 1) {
+                      //   addArtistsTopSong(shortTermArtists, body.access_token, 0, function(shortTermArtists) {
+                      //     if (mediumTermArtists.total >= 1) {
+                      //       addArtistsTopSong(mediumTermArtists, body.access_token, 0, function(mediumTermArtists) {
+                      //         if (longTermArtists.total >= 1) {
+                      //           addArtistsTopSong(longTermArtists, body.access_token, 0, function(longTermArtists) {
+                      //             res.render("stats", {profile, shortTermSongs, mediumTermSongs, longTermSongs, shortTermArtists, mediumTermArtists, longTermArtists});
+                      //           });
+                      //         } else {
+                      //           res.render("stats", {profile, shortTermSongs, mediumTermSongs, longTermSongs, shortTermArtists, mediumTermArtists, longTermArtists});
+                      //         }
+                      //       });
+                      //     } else {
+                      //       res.render("stats", {profile, shortTermSongs, mediumTermSongs, longTermSongs, shortTermArtists, mediumTermArtists, longTermArtists});
+                      //     }
+                      //   });
+                      // } else {
+                        res.render("stats", {profile, shortTermSongs, mediumTermSongs, longTermSongs, shortTermArtists, mediumTermArtists, longTermArtists});
+                      // }
                     });
                   });
                 });
