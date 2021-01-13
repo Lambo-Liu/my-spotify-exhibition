@@ -472,7 +472,7 @@
         src.volume = 0;
         src.currentTime = 0;
         src.play();
-        $(src).animate({volume: 1}, 1500);
+        $(src).animate({volume: 0.7}, 1500);
         setTimeout(function() {
           if (src.currentTime > 27.5) {
             $(src).animate({volume: 0}, 1500);
