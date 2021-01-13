@@ -316,21 +316,27 @@
     </div>
 
     <section class="d-none">
-      <% shortTermSongs.items.forEach(function(song) { %>
-        <audio id=<%=song.uri%>>
-          <source src=<%=song.preview_url%> type="audio/mpeg">
-        </audio>
-      <% }); %>
-      <% mediumTermSongs.items.forEach(function(song) { %>
-        <audio id=<%=song.uri%>>
-          <source src=<%=song.preview_url%> type="audio/mpeg">
-        </audio>
-      <% }); %>
-      <% longTermSongs.items.forEach(function(song) { %>
-        <audio id=<%=song.uri%>>
-          <source src=<%=song.preview_url%> type="audio/mpeg">
-        </audio>
-      <% }); %>
+      <% if (shortTermSongs.total >= 1) { %>
+        <% shortTermSongs.items.forEach(function(song) { %>
+          <audio id=<%=song.uri%>>
+            <source src=<%=song.preview_url%> type="audio/mpeg">
+          </audio>
+        <% }); %>
+      <% } %>
+      <% if (mediumTermSongs.total >= 1) { %>
+        <% mediumTermSongs.items.forEach(function(song) { %>
+          <audio id=<%=song.uri%>>
+            <source src=<%=song.preview_url%> type="audio/mpeg">
+          </audio>
+        <% }); %>
+      <% } %>
+      <% if (longTermSongs.total >= 1) { %>
+        <% longTermSongs.items.forEach(function(song) { %>
+          <audio id=<%=song.uri%>>
+            <source src=<%=song.preview_url%> type="audio/mpeg">
+          </audio>
+        <% }); %>
+      <% } %>
       <!-- <% shortTermArtists.items.forEach(function(artist) { %>
         <audio id=<%=artist.uri%>>
           <source src=<%=artist.preview_url%> type="audio/mpeg">
