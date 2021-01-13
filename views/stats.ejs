@@ -252,7 +252,11 @@
                     <div class="card-wrapper">
                       <button class="btn-no-style w-100 card artist-card shadow d-flex flex-row" onclick="clickArtistCard(this);" id=artist<%=i%>>
                         <div class="small-artist-cover-wrapper">
-                          <img class="small-artist-cover" src=<%=shortTermArtists.items[i].images[0].url%> alt="Artist image">
+                          <% if (shortTermArtists.items[i].images[0].url) { %>
+                            <img class="small-artist-cover" src=<%=shortTermArtists.items[i].images[0].url%> alt="Artist image">
+                          <% } else { %>
+                            <img class="small-artist-cover" src="img/empty.jpg" style="background: #181818;" alt="No artist image available">
+                          <% } %>
                         </div>
                         <div class="small-artist-rank h-100 d-flex align-items-center justify-content-center"><%=i+1%></div>
                         <div class="d-flex flex-column justify-content-center artist-description-wrapper-small">
@@ -266,7 +270,11 @@
                   <div class="d-none col-xxl-4 col-lg-6 col-12">
                     <div class="card-wrapper">
                       <button class="btn-no-style w-100 card artist-card shadow d-flex flex-row" onclick="clickArtistCard(this);" id=artist<%=i%>>
-                        <img class="small-artist-cover" src=<%=shortTermArtists.items[i].images[0].url%> alt="Artist image">
+                        <% if (shortTermArtists.items[i].images[0].url) { %>
+                          <img class="small-artist-cover" src=<%=shortTermArtists.items[i].images[0].url%> alt="Artist image">
+                        <% } else { %>
+                          <img class="small-artist-cover" src="img/empty.jpg" style="background: #181818;" alt="No artist image available">
+                        <% } %>
                         <div class="small-artist-rank h-100 d-flex align-items-center justify-content-center"><%=i+1%></div>
                         <div class="d-flex flex-column justify-content-center artist-description-wrapper-small">
                           <small class="line-cut-1 artist-name-small"><%=shortTermArtists.items[i].name%></small>
