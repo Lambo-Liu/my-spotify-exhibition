@@ -105,6 +105,7 @@ app.get("/login", function(req, res) {
 });
 
 app.get("/stats", function(req, res) {
+  console.log("test");
   const code = req.query.code || null;
   const state = req.query.state || null;
   const storedState = req.cookies ? req.cookies[stateKey] : null;
