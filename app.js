@@ -15,7 +15,7 @@ const path = require("path");
 const url = require("url");
 const aws = require("aws-sdk");
 
-var redirect_uri = "http://my-spotify-exhibition.com/stats"; // Redirect uri
+var redirect_uri = "https://my-spotify-exhibition.com/stats"; // Redirect uri
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
