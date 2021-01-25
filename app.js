@@ -89,6 +89,8 @@ function addArtistsTopSong(artists, access_token, i, callback) {
 }
 
 app.get("/login", function(req, res) {
+  console.log(redirect_uri);
+
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
 
