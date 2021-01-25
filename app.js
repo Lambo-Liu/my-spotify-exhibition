@@ -2,7 +2,6 @@
 //  TO-DO LIST:
 //   o Get statistics like danceability, accousticness, etc. into songs
 //   o Play artist songs
-//   o Mute button / volume control
 //
 
 const http = require("http");
@@ -15,7 +14,7 @@ const path = require("path");
 const url = require("url");
 const aws = require("aws-sdk");
 
-var redirect_uri = "https://my-spotify-exhibition.com/stats"; // Redirect uri
+var redirect_uri = "https://my-spotify-exhibition.herokuapp.com/stats"; // Redirect uri
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -89,8 +88,6 @@ function addArtistsTopSong(artists, access_token, i, callback) {
 }
 
 app.get("/login", function(req, res) {
-  console.log(redirect_uri);
-
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
 
